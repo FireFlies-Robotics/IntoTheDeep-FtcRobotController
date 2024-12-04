@@ -23,7 +23,7 @@ public class Intake {
     }
 
     public void liftIntake() {
-        if (intakeLift.getPosition() <= intakeUpPosition)
+        if (intakeLift.getPosition() <= intakeDownPosition)
             intakeLift.setPosition(intakeUpPosition);
         else {
             intakeLift.setPosition(intakeDownPosition);
@@ -34,6 +34,7 @@ public class Intake {
 
     public void collect(double power) {
         intakeServo.setPower(power);
+
     }
 
 }

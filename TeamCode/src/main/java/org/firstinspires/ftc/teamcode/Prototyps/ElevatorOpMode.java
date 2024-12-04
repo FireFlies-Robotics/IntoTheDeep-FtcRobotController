@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Elevator;
 
 @TeleOp(name="Elevator OpMode", group="Linear OpMode")
-@Disabled
+//@Disabled
 public class ElevatorOpMode extends LinearOpMode {
 
     // Declare OpMode members.
@@ -47,12 +47,15 @@ public class ElevatorOpMode extends LinearOpMode {
     public void runOpMode() {
         Elevator elevator = new Elevator(this);
         elevator.initElevator();
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 
         while (opModeIsActive()) {
+            telemetry.addData("posotion", elevator.rotateForwards());
+            telemetry.update();
             elevator.extend(gamepad1.left_stick_y);
             if (gamepad1.left_bumper){elevator.rotateBackwards();}
             if (gamepad1.right_bumper){elevator.rotateForwards();}
