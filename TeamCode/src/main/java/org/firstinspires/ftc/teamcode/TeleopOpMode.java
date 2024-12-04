@@ -85,11 +85,14 @@ public class TeleopOpMode extends LinearOpMode {
             if (gamepad2.right_bumper){elevator.rotateForwards();}
 
             if (gamepad2.circle){ intake.collect(1);}
-
             else if (gamepad2.square){intake.collect(-1);}
 
         }
+        if (gamepad2.triangle) {
+            intake.liftIntake();
+        }
+        }
     }
-}
+
 
 

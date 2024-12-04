@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Elevator {
 
@@ -9,7 +10,9 @@ public class Elevator {
     final public static double ARM_MIN_LIMIT = 200;
 
     private DcMotor elevatorExtend;
-    private DcMotor elevatorArm;
+    private DcMotor elevatorLeftArm;
+    private DcMotor elevatorRightArm;
+
 
     private OpMode opMode;
 
@@ -18,11 +21,15 @@ public class Elevator {
     }
 
     public void initElevator(){
-        elevatorExtend  = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
-        elevatorArm = opMode.hardwareMap.get(DcMotor.class, "elevatorArm");
+        elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
+        elevatorRightArm = opMode.hardwareMap.get(DcMotor.class, "elevatorRightArm");
+        elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
+
         elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevatorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elevatorArm.setPower(1);
+        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
+        elevatorLeftArm.setPower(1);
+        elevatorRightArm.setPower(1);
     }
 
     // this function use value (like the gamepad stick) to give the extension motor power.
@@ -34,21 +41,39 @@ public class Elevator {
     // this function use value (like the gamepad stick) to give the rotation motor power.
     public void rotateBackwards(){
 //        elevatorArm.setPower(rotation);
-        if(elevatorArm.getCurrentPosition()>=ARM_MAX_LIMIT){
-            elevatorArm.setTargetPosition(elevatorArm.getCurrentPosition());
+        if(elevatorLeftArm.getCurrentPosition()>=ARM_MAX_LIMIT){
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition());
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition());
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else {elevatorArm.setTargetPosition(elevatorArm.getCurrentPosition()+200);} // todo check real limit numbers
-        elevatorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        else {
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition()+200);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition()+200);
+
+
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        } // todo check real limit numbers
+
     }
     public void rotateForwards(){
 //        elevatorArm.setPower(rotation);
-        if(elevatorArm.getCurrentPosition()<=ARM_MIN_LIMIT){
-            elevatorArm.setTargetPosition(elevatorArm.getCurrentPosition());
+        if(elevatorLeftArm.getCurrentPosition()>=ARM_MIN_LIMIT){
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition());
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition());
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else {elevatorArm.setTargetPosition(elevatorArm.getCurrentPosition()-200);} // todo check real limit numbers
-        elevatorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        else {
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition()-200);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition()-200);
+
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 
+}
 }
 
