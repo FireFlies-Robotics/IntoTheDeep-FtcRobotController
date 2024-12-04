@@ -33,7 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Prototipes.Elevator;
+import org.firstinspires.ftc.teamcode.Elevator;
 
 @TeleOp(name="Elevator OpMode", group="Linear OpMode")
 @Disabled
