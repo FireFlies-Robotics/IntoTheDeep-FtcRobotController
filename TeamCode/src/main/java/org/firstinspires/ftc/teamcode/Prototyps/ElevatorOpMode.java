@@ -49,18 +49,30 @@ public class ElevatorOpMode extends LinearOpMode {
         elevator.initElevator();
 
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        telemetry.addData("possition", elevator.elevatorRightArm.getCurrentPosition());
 
+        telemetry.addData("Elevator Extend Motor", elevator.elevatorExtend != null ? "Found" : "Not Found");
+        telemetry.update();
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("posotion", elevator.rotateForwards());
+            if (gamepad1.options){
+                elevator.start();
+            }
+//            telemetry.addData("posotion", elevator.rotateForwards());
             telemetry.update();
-            elevator.extend(gamepad1.left_stick_y);
+
+            elevator.extend(-gamepad1.left_stick_y);
             if (gamepad1.left_bumper){elevator.rotateBackwards();}
             if (gamepad1.right_bumper){elevator.rotateForwards();}
+            telemetry.addData("Left Stick Y", gamepad1.left_stick_y);
+            telemetry.addData("position", elevator.elevatorRightArm.getCurrentPosition());
+            telemetry.addData("leftBumper", gamepad1.left_bumper);
+            telemetry.addData("right Bumper", gamepad1.right_bumper);
+            telemetry.update();
 
+        }
 }
-}}
+}
 
 

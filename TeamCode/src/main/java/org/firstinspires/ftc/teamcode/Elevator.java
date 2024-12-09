@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Elevator {
 
-    final public static double ARM_MAX_LIMIT = 20000;
-    final public static double ARM_MIN_LIMIT = 200;
+    final public static int ARM_MAX_LIMIT = -1600;
+    final public static int ARM_MIN_LIMIT = -500;
 
-    private DcMotor elevatorExtend;
-    private DcMotor elevatorLeftArm;
-    private DcMotor elevatorRightArm;
+    public  DcMotor elevatorExtend;
+    public DcMotor elevatorLeftArm;
+    public DcMotor elevatorRightArm;
 
 
     private OpMode opMode;
@@ -24,62 +24,82 @@ public class Elevator {
         elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
         elevatorRightArm = opMode.hardwareMap.get(DcMotor.class, "elevatorRightArm");
         elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
+        elevatorLeftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
+
 //        elevatorLeftArm.setPower(1);
 //        elevatorRightArm.setPower(1);
+    }
+
+    public void start(){
+
+        elevatorLeftArm.setTargetPosition(ARM_MAX_LIMIT);
+        elevatorRightArm.setTargetPosition(ARM_MAX_LIMIT);
+        elevatorLeftArm.setPower(1);
+        elevatorRightArm.setPower(1);
+
+        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 
     // this function use value (like the gamepad stick) to give the extension motor power.
     public void extend(double extension){
-//        if (elevatorExtend.getPower()>=0.3){
-            elevatorExtend.setPower(extension);
-//        }
+        if (extension>=0.3 || extension <= -0.3){elevatorExtend.setPower(extension);
+        }
+        else {elevatorExtend.setPower(0);
+}
     }
     // this function use value (like the gamepad stick) to give the rotation motor power.
     public void rotateBackwards(){
-//        elevatorArm.setPower(rotation);
-        if(elevatorLeftArm.getCurrentPosition()>=ARM_MAX_LIMIT){
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition());
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition());
+        if (elevatorRightArm.getCurrentPosition() >= ARM_MAX_LIMIT) {
+
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 50);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 50);
+            elevatorLeftArm.setPower(1);
+            elevatorRightArm.setPower(1);
+
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else {
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition()+200);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition()+200);
+    }
+
+
+    // todo check real limit numbers
+
+
+    public void rotateForwards(){
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT) {
+
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 50);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 50);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
 
-
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        } // todo check real limit numbers
-
-    }
-    public int rotateForwards(){
-//        elevatorArm.setPower(rotation);
-        if(elevatorLeftArm.getCurrentPosition()>=ARM_MIN_LIMIT){
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition());
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition());
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else {
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition()-200);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition()-200);
-            elevatorLeftArm.setPower(1);
-            elevatorRightArm.setPower(1);
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-        return elevatorLeftArm.getCurrentPosition();
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT) {
+            elevatorLeftArm.setPower(0);
+            elevatorRightArm.setPower(0);
+        }
 
+
+    }
 }
-}
+
+
 
