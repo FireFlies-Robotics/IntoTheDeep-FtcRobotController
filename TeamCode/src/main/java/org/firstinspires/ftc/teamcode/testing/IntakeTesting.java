@@ -21,8 +21,13 @@ public class IntakeTesting extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+//            intake.intakeLift.setPosition(gamepad2.left_stick_y);
+            telemetry.addData("lift position", gamepad2.left_stick_y);
+            telemetry.update();
             if (gamepad2.circle){
-                intake.collect(1);
+                /*int*/intake.collect(1);
+
+
 
             }
             else if (gamepad2.square){

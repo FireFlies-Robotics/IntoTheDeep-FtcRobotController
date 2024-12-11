@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Elevator {
 
     final public static int ARM_MAX_LIMIT = -1600;
-    final public static int ARM_MIN_LIMIT = -500;
+    final public static int ARM_MIN_LIMIT = 0; // cant expend over -500
 
     public  DcMotor elevatorExtend;
     public DcMotor elevatorLeftArm;
@@ -54,7 +54,8 @@ public class Elevator {
 
     // this function use value (like the gamepad stick) to give the extension motor power.
     public void extend(double extension){
-        if (extension>=0.3 || extension <= -0.3){elevatorExtend.setPower(extension);
+        if (extension>=0.3 || extension <= -0.3 || elevatorRightArm.getCurrentPosition() != ARM_MIN_LIMIT)
+        {elevatorExtend.setPower(extension);
         }
         else {elevatorExtend.setPower(0);
 }
@@ -63,8 +64,8 @@ public class Elevator {
     public void rotateBackwards(){
         if (elevatorRightArm.getCurrentPosition() >= ARM_MAX_LIMIT) {
 
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 50);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 50);
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 50);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 50);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
 
@@ -84,15 +85,15 @@ public class Elevator {
     public void rotateForwards(){
         if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT) {
 
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 50);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 50);
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 50);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 50);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
 
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT) {
+        if (elevatorRightArm.getCurrentPosition() >= ARM_MIN_LIMIT) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }

@@ -23,12 +23,15 @@ public class FieldOrientedWheelsTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Runs when init is pressed. Initialize variables and pregame logic here
+        imu = hardwareMap.get(IMU.class, "imu");
 
         wheels = new Wheels(this, imu);
 
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Speed", "Waiting to start");
         telemetry.update();
+
+        imu.resetYaw();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
