@@ -30,15 +30,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear OpMode")
-@Disabled
-public class TeleopOpMode extends LinearOpMode {
+@TeleOp(name="Main OpMode", group="Linear OpMode")
+//@Disabled
+public class TeleOpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private final ElapsedTime runtime = new ElapsedTime();
@@ -58,7 +57,7 @@ public class TeleopOpMode extends LinearOpMode {
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
-        elevator.initElevator();
+
 
         elevator = new Elevator(this);
         wheels = new Wheels(this, imu);
@@ -68,31 +67,53 @@ public class TeleopOpMode extends LinearOpMode {
         intake.initIntake();
 
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
+//        telemetry.update();
 
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
-
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+            if (gamepad2.cross){intake.intakeDown();}
+            if (gamepad2.triangle){intake.intakeUp();}
             // Move robot by controller 1
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-            // Elevator handling
-            elevator.extend(gamepad2.right_trigger);
-            elevator.extend(-gamepad2.left_trigger);
-            if (gamepad2.left_bumper){elevator.rotateBackwards();}
-            if (gamepad2.right_bumper){elevator.rotateForwards();}
+            telemetry.addData("arm position", elevator.elevatorLeftArm.getCurrentPosition());
+            elevator.extend(gamepad1.left_stick_y);
+            if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+                elevator.rotateForwards();
+            }
+            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+                elevator.rotateBackwords();
+            }
+                elevator.extend(gamepad2.left_stick_y);
 
-            if (gamepad2.circle){ intake.collect(1);}
-            else if (gamepad2.square){intake.collect(-1);}
+            if (gamepad2.circle){
+                intake.collect(1);
 
-        }
-        if (gamepad2.triangle) {
-            intake.liftIntake();
-        }
+            }
+            else if (gamepad2.square){
+                intake.collect(-1);
+            }
+            else {intake.collect(0);}
+
+        if (gamepad2.cross){intake.intakeDown();}
+        if (gamepad2.triangle){intake.intakeUp();}
+//        elevator.stabilise();
+
+            if (gamepad2.touchpad){
+                intake.intakeDown();
+                elevator.collect();
+            }
+        telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
+        telemetry.update();
         }
     }
+}
+
 
 
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Elevator {
 
     final public static int ARM_MAX_LIMIT = -1600;
-    final public static int ARM_MIN_LIMIT = 0; // cant expend over -500
+    final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
     public  DcMotor elevatorExtend;
     public DcMotor elevatorLeftArm;
@@ -26,7 +26,7 @@ public class Elevator {
         elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
         elevatorLeftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+//        elevatorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -34,6 +34,9 @@ public class Elevator {
         elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
 //        elevatorLeftArm.setPower(1);
@@ -54,25 +57,25 @@ public class Elevator {
 
     // this function use value (like the gamepad stick) to give the extension motor power.
     public void extend(double extension){
-        if (extension>=0.3 || extension <= -0.3 || elevatorRightArm.getCurrentPosition() != ARM_MIN_LIMIT)
+        if (extension>=0.3 || extension <= -0.3 || elevatorRightArm.getCurrentPosition() != ARM_MIN_LIMIT || elevatorExtend.getCurrentPosition() <=100000)
         {elevatorExtend.setPower(extension);
         }
         else {elevatorExtend.setPower(0);
 }
     }
     // this function use value (like the gamepad stick) to give the rotation motor power.
-    public void rotateBackwards(){
+    public void rotateForwards(){
         if (elevatorRightArm.getCurrentPosition() >= ARM_MAX_LIMIT) {
 
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 50);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 50);
-            elevatorLeftArm.setPower(1);
-            elevatorRightArm.setPower(1);
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 25);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 25);
+            elevatorLeftArm.setPower(0.8);
+            elevatorRightArm.setPower(0.8);
 
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT) {
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT ) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
@@ -82,13 +85,13 @@ public class Elevator {
     // todo check real limit numbers
 
 
-    public void rotateForwards(){
-        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT) {
+    public void rotateBackwords(){
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT ) {
 
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 50);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 50);
-            elevatorLeftArm.setPower(1);
-            elevatorRightArm.setPower(1);
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 25);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 25);
+            elevatorLeftArm.setPower(0.8);
+            elevatorRightArm.setPower(0.8);
 
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -97,10 +100,27 @@ public class Elevator {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
-
-
     }
-}
+        public void score(){
+            elevatorLeftArm.setTargetPosition(500);
+            elevatorRightArm.setTargetPosition(500);
+            elevatorLeftArm.setPower(1);
+            elevatorRightArm.setPower(1);
+
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        public void collect(){
+            elevatorLeftArm.setTargetPosition(100);
+            elevatorRightArm.setTargetPosition(100);
+            elevatorLeftArm.setPower(1);
+            elevatorRightArm.setPower(1);
+            elevatorExtend.setTargetPosition(0);
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
 
 
 

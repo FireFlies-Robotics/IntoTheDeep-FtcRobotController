@@ -127,6 +127,9 @@ public class ConceptVisionColorSensor extends LinearOpMode
 
             // Display the Color Sensor result.
             telemetry.addData("Best Match:", result.closestSwatch);
+            if (result.closestSwatch == PredominantColorProcessor.Swatch.RED){
+                telemetry.addLine("עובד");
+            }
             telemetry.addLine(String.format("R %3d, G %3d, B %3d", Color.red(result.rgb), Color.green(result.rgb), Color.blue(result.rgb)));
             telemetry.update();
 

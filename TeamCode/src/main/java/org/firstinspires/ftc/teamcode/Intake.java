@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Intake {
 
     private CRServo intakeServo;
-    public Servo intakeLift;
+    private Servo intakeLift;
 
-    private double intakeDownPosition = 0.5;
-    private double intakeUpPosition = 0.7;
+    private double intakeDownPosition = 0;
+    private double intakeUpPosition = 0.9;
     public void initIntake() {
         intakeServo.setPower(0);
     }
@@ -20,6 +20,12 @@ public class Intake {
     public Intake(OpMode opMode) {
         intakeServo = opMode.hardwareMap.get(CRServo.class, "intakeServo");
         intakeLift = opMode.hardwareMap.get(Servo.class, "liftServo");
+    }
+    public void intakeUp(){
+        intakeLift.setPosition(intakeUpPosition);
+    }
+    public void intakeDown(){
+        intakeLift.setPosition(intakeDownPosition);
     }
 
     public void liftIntake() {

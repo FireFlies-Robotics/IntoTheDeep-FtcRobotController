@@ -43,7 +43,7 @@ public class Wheels {
         // Getting the wheel motors and setting them up
 
         frontLeft = opMode.hardwareMap.get(DcMotor.class, "FrontLeft");
-        frontRight = opMode.hardwareMap.get(DcMotor.class, "FrontRight");
+        frontRight = opMode.hardwareMap.get(DcMotor.class, " FrontRight");
         backLeft = opMode.hardwareMap.get(DcMotor.class, "BackLeft");
         backRight = opMode.hardwareMap.get(DcMotor.class, "BackRight");
 //        imu = opMode.hardwareMap.get(IMU.class, "imu");

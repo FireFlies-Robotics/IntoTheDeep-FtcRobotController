@@ -10,7 +10,7 @@ public class IntakeTesting extends LinearOpMode {
 
     Intake intake;
     boolean intakeLiftActive;
-
+    boolean triangle = false; // false = down
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -21,25 +21,26 @@ public class IntakeTesting extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-//            intake.intakeLift.setPosition(gamepad2.left_stick_y);
-            telemetry.addData("lift position", gamepad2.left_stick_y);
-            telemetry.update();
+            if (gamepad2.cross){intake.intakeDown();}
+            if (gamepad2.triangle){intake.intakeUp();}
+
             if (gamepad2.circle){
-                /*int*/intake.collect(1);
-
-
+                intake.collect(1);
 
             }
             else if (gamepad2.square){
                 intake.collect(-1);
             }
-            else if (gamepad2.triangle) {
+            else if (gamepad2.triangle || !triangle) {
                 intake.liftIntake();
+                triangle = true;
             }
             else {
                 intake.collect(0);
             }
-        }
+//            triangle = false;
+
         }
     }
+}
 
