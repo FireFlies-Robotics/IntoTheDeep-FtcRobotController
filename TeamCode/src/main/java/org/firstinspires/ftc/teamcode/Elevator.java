@@ -102,7 +102,7 @@ public class Elevator {
         }
     }
         public void score(){
-            elevatorLeftArm.setTargetPosition(500);
+            elevatorLeftArm.setTargetPosition(500); //todo change to real scoring poison
             elevatorRightArm.setTargetPosition(500);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
@@ -111,11 +111,15 @@ public class Elevator {
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         public void collect(){
+            elevatorExtend.setTargetPosition(0);
+            elevatorExtend.setPower(1);
             elevatorLeftArm.setTargetPosition(100);
             elevatorRightArm.setTargetPosition(100);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
+            elevatorExtend.setPower(1);
             elevatorExtend.setTargetPosition(0);
+            elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
