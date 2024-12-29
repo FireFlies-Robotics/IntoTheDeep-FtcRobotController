@@ -103,13 +103,19 @@ public class TeleOpMode extends LinearOpMode {
         if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
-            if (gamepad2.left_bumper){
+            if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000){
                 intake.intakeDown();
                 elevator.collect();
             }
-            if (gamepad2.right_bumper){
+            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000){
                 elevator.score();
                 intake.intakeUp();
+            }
+
+            if (gamepad1.left_bumper) {
+                wheels.setMaxSpeed(.4);
+            } else {
+                wheels.setMaxSpeed(1);
             }
         telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
         telemetry.update();
