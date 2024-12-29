@@ -66,6 +66,7 @@ public class Elevator {
     public void extend(double extension){
         boolean useExtend = extension>=0.3 || extension <= -0.3;
         if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
+            opMode.telemetry.addLine("1");
             elevatorExtend.setTargetPosition(0);
             elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorExtend.setPower(1);
@@ -73,27 +74,32 @@ public class Elevator {
         else if (useExtend
                 && elevatorRightArm.getCurrentPosition() > ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() < ELEVATOR_MAX_LIMIT) {
+            opMode.telemetry.addLine("2");
             elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             elevatorExtend.setPower(extension);
         }
         else if (useExtend
                 && elevatorRightArm.getCurrentPosition() > ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() >= ELEVATOR_MAX_LIMIT) {
+            opMode.telemetry.addLine("3");
             elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             elevatorExtend.setPower(Math.min(extension, 0));
         }
         else if (useExtend
                 && elevatorRightArm.getCurrentPosition() <= ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() < ELEVATOR_MAX_COLLECT) {
+            opMode.telemetry.addLine("4");
             elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             elevatorExtend.setPower(extension);
         }
         else if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() >= ELEVATOR_MAX_COLLECT) {
+            opMode.telemetry.addLine("5");
             elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             elevatorExtend.setPower(Math.min(extension, -0.3));
         }
         else {
+            opMode.telemetry.addLine("6");
             elevatorExtend.setPower(0);
         }
     }
@@ -136,8 +142,8 @@ public class Elevator {
         }
     }
         public void score(){
-            elevatorLeftArm.setTargetPosition(-900); //todo change to real scoring poison
-            elevatorRightArm.setTargetPosition(-900);
+            elevatorLeftArm.setTargetPosition(-860); //todo change to real scoring poison
+            elevatorRightArm.setTargetPosition(-860);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
 
