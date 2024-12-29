@@ -83,10 +83,10 @@ public class TeleOpMode extends LinearOpMode {
 
             telemetry.addData("arm position", elevator.elevatorLeftArm.getCurrentPosition());
             elevator.extend(gamepad1.left_stick_y);
-            if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+            if (gamepad2.dpad_up && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
                 elevator.rotateForwards();
             }
-            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+            if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
                 elevator.rotateBackwords();
             }
                 elevator.extend(gamepad2.left_stick_y);
@@ -104,9 +104,13 @@ public class TeleOpMode extends LinearOpMode {
         if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
-            if (gamepad2.touchpad){
+            if (gamepad2.left_bumper){
                 intake.intakeDown();
                 elevator.collect();
+            }
+            if (gamepad2.right_bumper){
+                elevator.score();
+                intake.intakeUp();
             }
         telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
         telemetry.update();

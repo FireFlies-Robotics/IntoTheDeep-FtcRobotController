@@ -36,11 +36,9 @@ public class Intake {
     }
 
 }
-
-
     public void collect(double power) {
         intakeServo.setPower(power);
-
     }
+
 
 }
