@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+@Config
 public class Elevator {
 
-    final public static int ARM_MAX_LIMIT = -1600;
+    final public static int ARM_MAX_LIMIT = 1600;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
     final public static int ARM_MAX_SCORE = -850;
@@ -20,6 +22,11 @@ public class Elevator {
     public DcMotor elevatorLeftArm;
     public DcMotor elevatorRightArm;
 
+    public PIDController controller;
+
+    public double p, i, d, f;
+    public int targetPos;
+    public double ticsPerDegree; // todo למצוא רפמ
 
     private OpMode opMode;
 
@@ -43,15 +50,24 @@ public class Elevator {
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
+
+        controller = new PIDController(p, i, d);
 
 //        elevatorLeftArm.setPower(1);
 //        elevatorRightArm.setPower(1);
     }
+    public void PID(){
+        controller.setPID(p, i, d);
+        int currentPosition = -1*(elevatorRightArm.getCurrentPosition());
+        double pidPower = controller.calculate(currentPosition,targetPos);
+        double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *f;
+        double power = pidPower + FF;
+        elevatorRightArm.setPower(power);
+        elevatorLeftArm.setPower(power);
+    }
 
     public void start(){
-
         elevatorLeftArm.setTargetPosition(ARM_MAX_LIMIT);
         elevatorRightArm.setTargetPosition(ARM_MAX_LIMIT);
         elevatorLeftArm.setPower(1);
@@ -105,19 +121,8 @@ public class Elevator {
     }
     // this function use value (like the gamepad stick) to give the rotation motor power.
     public void rotateForwards(){
-        if (elevatorRightArm.getCurrentPosition() >= ARM_MAX_LIMIT) {
-
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() - 25);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() - 25);
-            elevatorLeftArm.setPower(0.8);
-            elevatorRightArm.setPower(0.8);
-
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT ) {
-            elevatorLeftArm.setPower(0);
-            elevatorRightArm.setPower(0);
+        if (targetPos+25 <= ARM_MAX_LIMIT) {
+            targetPos +=25;
         }
     }
 
@@ -126,38 +131,14 @@ public class Elevator {
 
 
     public void rotateBackwords(){
-        if (elevatorRightArm.getCurrentPosition() <= ARM_MIN_LIMIT ) {
-
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getCurrentPosition() + 25);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getCurrentPosition() + 25);
-            elevatorLeftArm.setPower(0.8);
-            elevatorRightArm.setPower(0.8);
-
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-        if (elevatorRightArm.getCurrentPosition() >= ARM_MIN_LIMIT) {
-            elevatorLeftArm.setPower(0);
-            elevatorRightArm.setPower(0);
+        if (targetPos-25 >= ARM_MIN_LIMIT ) {
+            targetPos-=25;
         }
     }
         public void score(){
-            elevatorLeftArm.setTargetPosition(-860); //todo change to real scoring poison
-            elevatorRightArm.setTargetPosition(-860);
-            elevatorLeftArm.setPower(0.3);
-            elevatorRightArm.setPower(0.3);
-
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        targetPos = 860;
         }
-        public void collect(){
-            elevatorLeftArm.setTargetPosition(-1400);
-            elevatorRightArm.setTargetPosition(-1400);
-            elevatorLeftArm.setPower(0.3);
-            elevatorRightArm.setPower(0.3);
-            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        public void collect(){targetPos = 1400;}
     }
 
 
