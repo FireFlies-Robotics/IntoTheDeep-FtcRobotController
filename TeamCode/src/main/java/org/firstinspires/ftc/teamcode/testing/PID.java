@@ -21,12 +21,13 @@ public class PID extends LinearOpMode {
     public void runOpMode() {
         Elevator elevator = new Elevator(this);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-
+        elevator.initElevator();
         waitForStart();
 
         // Main Loop
         while (opModeIsActive()) {
-            elevator.PID();
+            if (elevator.targetPos <= elevator.ARM_MIN_LIMIT){
+            elevator.PID();}
 
             telemetry.addData("pos", elevator.targetPos);
             telemetry.addData("current", elevator.elevatorRightArm.getCurrentPosition()*-1);

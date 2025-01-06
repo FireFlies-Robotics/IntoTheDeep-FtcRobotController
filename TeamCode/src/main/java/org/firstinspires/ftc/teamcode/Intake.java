@@ -12,7 +12,7 @@ public class Intake {
     private Servo intakeLift;
 
     private double intakeDownPosition = 0;
-    private double intakeUpPosition = 0.9;
+    private double intakeUpPosition = 0.7;
     public void initIntake() {
         intakeServo.setPower(0);
     }
