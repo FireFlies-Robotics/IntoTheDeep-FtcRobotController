@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,6 +19,7 @@ public class Intake {
     }
 
     public Intake(OpMode opMode) {
+
         intakeServo = opMode.hardwareMap.get(CRServo.class, "intakeServo");
         intakeLift = opMode.hardwareMap.get(Servo.class, "liftServo");
     }
