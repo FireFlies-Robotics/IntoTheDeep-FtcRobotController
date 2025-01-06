@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.testing;
 // Imports.
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Elevator;
 
 // TeleOp name.
 @TeleOp(name = "Arm_PID")
-
+@Config
 public class PID extends LinearOpMode {
     private final FtcDashboard dash = FtcDashboard.getInstance();
 

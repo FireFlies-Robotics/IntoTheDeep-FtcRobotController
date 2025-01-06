@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -24,9 +26,10 @@ public class Elevator {
 
     public PIDController controller;
 
+
     public double p, i, d, f;
-    public int targetPos;
-    public double ticsPerDegree; // todo למצוא רפמ
+    public int targetPos = 0;
+    public double ticsPerDegree = (1993.6*3)/360 ;  // todo למצוא רפמ
 
     private OpMode opMode;
 
@@ -53,7 +56,7 @@ public class Elevator {
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
         controller = new PIDController(p, i, d);
-
+        opMode.telemetry = new MultipleTelemetry(opMode.telemetry, FtcDashboard.getInstance().getTelemetry());
 //        elevatorLeftArm.setPower(1);
 //        elevatorRightArm.setPower(1);
     }
@@ -63,8 +66,10 @@ public class Elevator {
         double pidPower = controller.calculate(currentPosition,targetPos);
         double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *f;
         double power = pidPower + FF;
+
         elevatorRightArm.setPower(power);
         elevatorLeftArm.setPower(power);
+
     }
 
     public void start(){
