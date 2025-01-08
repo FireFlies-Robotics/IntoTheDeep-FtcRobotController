@@ -88,7 +88,7 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
                 elevator.rotateBackwords();
             }
-                elevator.extend(gamepad2.left_stick_y);
+            elevator.extend(-gamepad2.left_stick_y);
 
             if (gamepad2.circle){
                 intake.collect(1);
@@ -99,8 +99,8 @@ public class TeleOpMode extends LinearOpMode {
             }
             else {intake.collect(0);}
 
-        if (gamepad2.cross){intake.intakeDown();}
-        if (gamepad2.triangle){intake.intakeUp();}
+            if (gamepad2.cross){intake.intakeDown();}
+            if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
             if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000){
@@ -117,12 +117,11 @@ public class TeleOpMode extends LinearOpMode {
             } else {
                 wheels.setMaxSpeed(1);
             }
-        telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
-        telemetry.update();
+            telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
+            telemetry.update();
         }
     }
 }
-
 
 
 
