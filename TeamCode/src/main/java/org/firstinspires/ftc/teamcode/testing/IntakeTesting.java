@@ -24,7 +24,7 @@ public class IntakeTesting extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            intake.intakeLift.setPosition(intakePos);
+//            intake.intakeLift.setPosition(intakePos);
             if (gamepad2.cross){intake.intakeDown();}
             if (gamepad2.triangle){intake.intakeUp();}
 
