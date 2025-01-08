@@ -29,7 +29,7 @@ public class Elevator {
 
     public static double p, i, d, f;
     public static int targetPos = 0;
-    public double ticsPerDegree = (1993.6*1.4)/360 ;  // todo למצוא רפמ
+    public double ticsPerDegree = 1993.6/1.4 /360;  // todo למצוא רפמ
 
     private OpMode opMode;
 
@@ -45,14 +45,16 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
         controller = new PIDController(p, i, d);
@@ -65,7 +67,7 @@ public class Elevator {
         int currentPosition = -(elevatorRightArm.getCurrentPosition());
         double pidPower = controller.calculate(currentPosition,targetPos);
         double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *f;
-        double power = pidPower + FF;
+        double power = pidPower - FF;
 
         elevatorRightArm.setPower(power);
         elevatorLeftArm.setPower(power);

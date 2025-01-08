@@ -26,9 +26,8 @@ public class PID extends LinearOpMode {
 
         // Main Loop
         while (opModeIsActive()) {
-            if (elevator.targetPos <= elevator.ARM_MIN_LIMIT){
-            elevator.PID();}
-
+            elevator.PID();
+            telemetry.addData("power", elevator.elevatorLeftArm.getPower());
             telemetry.addData("pos", elevator.targetPos);
             telemetry.addData("current", elevator.elevatorRightArm.getCurrentPosition()*-1);
             telemetry.update();
