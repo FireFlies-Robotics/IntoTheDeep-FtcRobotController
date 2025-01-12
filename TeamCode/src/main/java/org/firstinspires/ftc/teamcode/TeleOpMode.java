@@ -114,9 +114,13 @@ public class TeleOpMode extends LinearOpMode {
                 intake.intakeUp();
             }
 
-            if (gamepad1.left_bumper) {
+            if (gamepad1.left_trigger > 0.2) {
                 wheels.setMaxSpeed(.5);
-            } else {
+            } else if(gamepad1.right_trigger > 0.2){
+                wheels.setMaxSpeed(0.3);
+            }
+
+            else {
                 wheels.setMaxSpeed(1);
             }
             telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
