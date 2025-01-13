@@ -28,8 +28,8 @@ public class PID extends LinearOpMode {
         while (opModeIsActive()) {
             elevator.PID();
             telemetry.addData("power", elevator.elevatorLeftArm.getPower());
-            telemetry.addData("pos", elevator.targetPos);
-            telemetry.addData("current", elevator.elevatorRightArm.getCurrentPosition()*-1);
+            telemetry.addData("targetpos", elevator.targetPos);
+            telemetry.addData("current",Math.abs(elevator.elevatorRightArm.getCurrentPosition()));
             telemetry.update();
         }
     }

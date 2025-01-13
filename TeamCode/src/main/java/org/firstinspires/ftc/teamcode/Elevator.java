@@ -29,7 +29,7 @@ public class Elevator {
 
     public static double p, i, d, f;
     public static int targetPos = 0;
-    public double ticsPerDegree = 1993.6/1.4 /360;  // todo למצוא רפמ
+    public double ticsPerDegree = (1993.6*1.4) /360;  // todo למצוא רפמ
 
     private OpMode opMode;
 
@@ -55,7 +55,7 @@ public class Elevator {
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
+        elevatorLeftArm .setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
         controller = new PIDController(p, i, d);
         opMode.telemetry = new MultipleTelemetry(opMode.telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -64,10 +64,10 @@ public class Elevator {
     }
     public void PID(){
         controller.setPID(p, i, d);
-        int currentPosition = -(elevatorRightArm.getCurrentPosition());
+        int currentPosition = Math.abs(elevatorRightArm.getCurrentPosition());
         double pidPower = controller.calculate(currentPosition,targetPos);
         double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *f;
-        double power = pidPower - FF;
+        double power = pidPower + FF;
 
         elevatorRightArm.setPower(power);
         elevatorLeftArm.setPower(power);
