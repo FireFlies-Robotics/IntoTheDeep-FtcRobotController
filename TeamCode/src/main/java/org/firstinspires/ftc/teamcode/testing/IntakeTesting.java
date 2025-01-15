@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.testing;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,13 +9,13 @@ import org.firstinspires.ftc.teamcode.Intake;
 
 @TeleOp(name = "IntakeTest", group = "test")
 @Config
+@Disabled
 public class IntakeTesting extends LinearOpMode {
 
     Intake intake;
     boolean intakeLiftActive;
     boolean triangle = false; // false = down
     public static double intakePos;
-
     @Override
     public void runOpMode() throws InterruptedException {
 

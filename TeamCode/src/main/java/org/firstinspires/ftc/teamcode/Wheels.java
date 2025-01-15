@@ -42,10 +42,10 @@ public class Wheels {
 
         // Getting the wheel motors and setting them up
 
-        frontLeft = opMode.hardwareMap.get(DcMotor.class, "FrontLeft");
-        frontRight = opMode.hardwareMap.get(DcMotor.class, " FrontRight");
-        backLeft = opMode.hardwareMap.get(DcMotor.class, "BackLeft");
-        backRight = opMode.hardwareMap.get(DcMotor.class, "BackRight");
+        frontLeft = opMode.hardwareMap.get(DcMotor.class, "leftFront");
+        frontRight = opMode.hardwareMap.get(DcMotor.class, "rightFront");
+        backLeft = opMode.hardwareMap.get(DcMotor.class, "leftBack");
+        backRight = opMode.hardwareMap.get(DcMotor.class, "rightBack");
 //        imu = opMode.hardwareMap.get(IMU.class, "imu");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -63,10 +63,10 @@ public class Wheels {
 
         // Getting the wheel motors and setting them up
 
-        frontLeft = opMode.hardwareMap.get(DcMotor.class, "FrontLeft");
-        frontRight = opMode.hardwareMap.get(DcMotor.class, "FrontRight");
-        backLeft = opMode.hardwareMap.get(DcMotor.class, "BackLeft");
-        backRight = opMode.hardwareMap.get(DcMotor.class, "BackRight");
+        frontLeft = opMode.hardwareMap.get(DcMotor.class, "leftFront");
+        frontRight = opMode.hardwareMap.get(DcMotor.class, "rightFront");
+        backLeft = opMode.hardwareMap.get(DcMotor.class, "leftBack");
+        backRight = opMode.hardwareMap.get(DcMotor.class, "rightBack");
         imu = opMode.hardwareMap.get(IMU.class, "imu");
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
