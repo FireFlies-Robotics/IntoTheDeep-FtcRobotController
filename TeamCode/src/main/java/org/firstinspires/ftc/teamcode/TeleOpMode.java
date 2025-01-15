@@ -103,7 +103,7 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
-            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000
+            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1300
                      ){
                 intake.intakeDown();
                 elevator.collect();
