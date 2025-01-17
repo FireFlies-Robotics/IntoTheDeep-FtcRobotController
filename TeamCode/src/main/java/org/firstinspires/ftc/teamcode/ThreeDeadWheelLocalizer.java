@@ -46,7 +46,7 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "rightBack")));// expention 2
 
         // TODO: reverse encoder directions if needed
-           perp.setDirection(DcMotorSimple.Direction.REVERSE);
+           par1.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.inPerTick = inPerTick;
 
