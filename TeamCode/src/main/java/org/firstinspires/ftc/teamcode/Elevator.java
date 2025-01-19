@@ -13,7 +13,7 @@ public class Elevator {
 
     final public static int ARM_MAX_COLLECT= -1000;
 
-    final public static int ELEVATOR_MAX_COLLECT = 1600;
+    final public static int ELEVATOR_MAX_COLLECT = 2600;
     final public static int ELEVATOR_MAX_LIMIT = 3000;
 
     public  DcMotor elevatorExtend;

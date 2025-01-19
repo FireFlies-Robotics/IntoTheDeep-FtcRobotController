@@ -22,6 +22,7 @@ public class Intake {
 
         intakeServo = opMode.hardwareMap.get(CRServo.class, "intakeServo");
         intakeLift = opMode.hardwareMap.get(Servo.class, "liftServo");
+collet
     }
     public void intakeUp(){
         intakeLift.setPosition(intakeUpPosition);
