@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Intake;
 
-@TeleOp(name = "IntakeTest", group = "test")
+@TeleOp(name = "wheelIntakeTest", group = "test")
 @Config
 //@Disabled
 public class IntakeWheels extends LinearOpMode {
