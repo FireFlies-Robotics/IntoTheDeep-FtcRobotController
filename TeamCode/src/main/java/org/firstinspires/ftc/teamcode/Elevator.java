@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Elevator {
 
-    final public static int ARM_MAX_LIMIT = -1600;
+    final public static int ARM_MAX_LIMIT = -1670;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
     final public static int ARM_MAX_SCORE = -850;
@@ -109,8 +109,8 @@ public class Elevator {
 
             elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() - 25);
             elevatorRightArm.setTargetPosition(elevatorRightArm.getTargetPosition() - 25);
-            elevatorLeftArm.setPower(0.8);
-            elevatorRightArm.setPower(0.8);
+            elevatorLeftArm.setPower(0.6);
+            elevatorRightArm.setPower(0.6);
 
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -142,8 +142,8 @@ public class Elevator {
         }
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-870); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-870);
+        elevatorLeftArm.setTargetPosition(-970); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-970);
         elevatorLeftArm.setPower(0.3);
         elevatorRightArm.setPower(0.3);
 
@@ -151,8 +151,8 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void collect(){
-        elevatorLeftArm.setTargetPosition(-5060);
-        elevatorRightArm.setTargetPosition(-5060);
+        elevatorLeftArm.setTargetPosition(-1670);
+        elevatorRightArm.setTargetPosition(-1670);
         elevatorLeftArm.setPower(0.3);
         elevatorRightArm.setPower(0.3);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
