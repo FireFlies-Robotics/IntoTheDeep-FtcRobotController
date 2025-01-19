@@ -76,7 +76,7 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad1.options) {
                 imu.resetYaw();
             }
-            if (gamepad2.cross){intake.intakeDown();}
+            //if (gamepad2.cross){intake.intakeDown();}
             if (gamepad2.triangle){intake.intakeUp();}
             // Move robot by controller 1
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
@@ -91,21 +91,23 @@ public class TeleOpMode extends LinearOpMode {
             elevator.extend(-gamepad2.left_stick_y);
 
             if (gamepad2.circle){
-                intake.collect(1);
-
+//              intake.collect(1);
+                intake.rotateIntakeWheels(1);
             }
             else if (gamepad2.square){
-                intake.collect(-1);
+//                intake.collect(-1);
+                intake.rotateIntakeWheels(-1);
             }
-            else {intake.collect(0);}
+            else {//intake.collect(0);
+            intake.rotateIntakeWheels(0);}
 
-            if (gamepad2.cross){intake.intakeDown();}
+            //if (gamepad2.cross){intake.intakeDown();}
             if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
             if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1300
                      ){
-                intake.intakeDown();
+                //intake.intakeDown();
                 elevator.collect();
             }
             if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000
