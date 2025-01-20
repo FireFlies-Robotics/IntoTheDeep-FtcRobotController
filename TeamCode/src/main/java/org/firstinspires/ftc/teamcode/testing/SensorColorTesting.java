@@ -27,11 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.testing;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,6 +40,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /*
@@ -66,7 +68,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 @TeleOp(name = "Sensor: Color", group = "Sensor")
 @Disabled
-public class SensorColor extends LinearOpMode {
+public class SensorColorTesting extends LinearOpMode {
+  private final float GAIN = 23;
+  private final float RED_HUE_LOW = 30;
+  private final float RED_HUE_HIGH = 340;
+
+  private final float BLUE_HUE_LOW = 180;
+  private final float BLUE_HUE_HIGH = 230;
+
+  private final float YELLOW_HUE_LOW = 40;
+  private final float YELLOW_HUE_HIGH = 70;
 
   /** The colorSensor field will contain a reference to our color sensor hardware object */
   NormalizedColorSensor colorSensor;
@@ -117,7 +128,7 @@ public class SensorColor extends LinearOpMode {
     // colors will report at or near 1, and you won't be able to determine what color you are
     // actually looking at. For this reason, it's better to err on the side of a lower gain
     // (but always greater than  or equal to 1).
-    float gain = 2;
+    float gain = GAIN;
 
     // Once per loop, we will update this hsvValues array. The first element (0) will contain the
     // hue, the second element (1) will contain the saturation, and the third element (2) will
@@ -147,15 +158,16 @@ public class SensorColor extends LinearOpMode {
     // Loop until we are asked to stop
     while (opModeIsActive()) {
       // Explain basic gain information via telemetry
+
       telemetry.addLine("Hold the A button on gamepad 1 to increase gain, or B to decrease it.\n");
       telemetry.addLine("Higher gain values mean that the sensor will report larger numbers for Red, Green, and Blue, and Value\n");
 
       // Update the gain value if either of the A or B gamepad buttons is being held
       if (gamepad1.a) {
         // Only increase the gain by a small amount, since this loop will occur multiple times per second.
-        gain += 0.005;
+        gain += 0.05;
       } else if (gamepad1.b && gain > 1) { // A gain of less than 1 will make the values smaller, which is not helpful.
-        gain -= 0.005;
+        gain -= 0.05;
       }
 
       // Show the gain value via telemetry
@@ -206,6 +218,20 @@ public class SensorColor extends LinearOpMode {
           if (colorSensor instanceof DistanceSensor) {
             telemetry.addData("Distance (cm)", "%.3f", ((DistanceSensor) colorSensor).getDistance(DistanceUnit.CM));
           }
+      }
+      if (hsvValues[2] < 0.3) {
+        telemetry.addLine("nothing");
+      }
+      if (hsvValues[0] < RED_HUE_LOW || hsvValues[0] > RED_HUE_HIGH){
+        telemetry.addLine("rred");
+      }
+
+      if (hsvValues[0] < BLUE_HUE_LOW && hsvValues[0] > BLUE_HUE_HIGH){
+        telemetry.addLine("blue");
+      }
+
+      if (hsvValues[0] < YELLOW_HUE_HIGH && hsvValues[0] > YELLOW_HUE_LOW){
+        telemetry.addLine("yellow");
       }
 
       telemetry.update();
