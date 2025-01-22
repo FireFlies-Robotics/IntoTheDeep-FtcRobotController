@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,6 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class TeleOpMode extends LinearOpMode {
 
+
     // Declare OpMode members.
     private final ElapsedTime runtime = new ElapsedTime();
 
@@ -48,7 +50,9 @@ public class TeleOpMode extends LinearOpMode {
     IMU imu; // Declare class for getting robot angles
 
     @Override
+
     public void runOpMode() {
+
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -82,10 +86,13 @@ public class TeleOpMode extends LinearOpMode {
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             telemetry.addData("arm position", elevator.elevatorLeftArm.getCurrentPosition());
-            if (gamepad2.dpad_up && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+            if (gamepad2.dpad_up //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
+            ) {
                 elevator.rotateForwards();
             }
-            if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
+            if (gamepad2.dpad_down //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
+             )
+            {
                 elevator.rotateBackwords();
             }
             elevator.extend(-gamepad2.left_stick_y);
@@ -105,12 +112,12 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
-            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1300
+            if (gamepad2.right_bumper //&& elevator.elevatorExtend.getCurrentPosition() <= 1300
                      ){
                 //intake.intakeDown();
                 elevator.collect();
             }
-            if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000
+            if (gamepad2.left_bumper //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
              ){
                 elevator.score();
                 intake.intakeUp();
