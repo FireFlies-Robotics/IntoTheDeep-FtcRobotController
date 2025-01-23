@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Wheels;
 
 @TeleOp(name = "Field Oriented Wheels Test", group = "Test")
 //Uncomment the line below to disable this op
-//@Disabled
+@Disabled
 public class FieldOrientedWheelsTest extends LinearOpMode {
     // Declare variables you will be using throughout this class here
 
@@ -23,12 +24,15 @@ public class FieldOrientedWheelsTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Runs when init is pressed. Initialize variables and pregame logic here
+        imu = hardwareMap.get(IMU.class, "imu");
 
         wheels = new Wheels(this, imu);
 
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Speed", "Waiting to start");
         telemetry.update();
+
+        imu.resetYaw();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
