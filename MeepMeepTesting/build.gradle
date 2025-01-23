@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 java {
@@ -9,8 +10,25 @@ java {
 
 repositories {
     maven { url = 'https://maven.brott.dev/' }
+    mavenCentral()
 }
 
 dependencies {
     implementation 'com.acmerobotics.roadrunner:MeepMeep:0.1.6'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation project(':TeamCode')
+    implementation project(':TeamCode')
+    implementation project(':TeamCode')
+    implementation project(':TeamCode')
+    implementation project(':TeamCode')
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
