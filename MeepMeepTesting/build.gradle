@@ -15,12 +15,12 @@ repositories {
 
 dependencies {
     implementation 'com.acmerobotics.roadrunner:MeepMeep:0.1.6'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation project(':TeamCode')
-    implementation project(':TeamCode')
-    implementation project(':TeamCode')
-    implementation project(':TeamCode')
-    implementation project(':TeamCode')
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+//    implementation project(':TeamCode')
+//    implementation project(':TeamCode')
+//    implementation project(':TeamCode')
+//    implementation project(':TeamCode')
+//    implementation project(':TeamCode')
 }
 compileKotlin {
     kotlinOptions {
