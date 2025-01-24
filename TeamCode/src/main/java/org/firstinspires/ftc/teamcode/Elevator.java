@@ -143,8 +143,8 @@ public class Elevator {
         }
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-870); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-870);
+        elevatorLeftArm.setTargetPosition(-900); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-900);
         elevatorLeftArm.setPower(0.3);
         elevatorRightArm.setPower(0.3);
 

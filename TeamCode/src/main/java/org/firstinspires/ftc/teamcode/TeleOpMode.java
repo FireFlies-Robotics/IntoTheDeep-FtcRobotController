@@ -86,11 +86,11 @@ public class TeleOpMode extends LinearOpMode {
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             telemetry.addData("arm position", elevator.elevatorLeftArm.getCurrentPosition());
-            if (gamepad2.dpad_up //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
+            if (gamepad2.dpad_up && elevator.elevatorExtend.getCurrentPosition() <= 1000
             ) {
                 elevator.rotateForwards();
             }
-            if (gamepad2.dpad_down //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
+            if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000
              )
             {
                 elevator.rotateBackwords();
