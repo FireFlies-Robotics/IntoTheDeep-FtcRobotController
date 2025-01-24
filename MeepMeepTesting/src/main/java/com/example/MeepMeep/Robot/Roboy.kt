@@ -1,4 +1,4 @@
-package com.example.meepmeeptesting.Robot
+package com.example.MeepMeep.Robot
 
 import com.acmerobotics.roadrunner.Pose2d
 import com.noahbres.meepmeep.MeepMeep

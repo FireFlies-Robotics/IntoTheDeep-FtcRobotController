@@ -1,4 +1,4 @@
-package com.example.meepmeeptesting;
+package com.example.MeepMeep;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.noahbres.meepmeep.MeepMeep;

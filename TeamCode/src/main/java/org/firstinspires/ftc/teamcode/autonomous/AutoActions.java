@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.testing.AutoTesting;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import androidx.annotation.NonNull;
 
@@ -113,27 +113,27 @@ public class AutoActions{
         return new ArmDown();
     }
 
-    public class OpenClaw implements Action {
+    public class ClawOut implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             intake.collect(-1);
             return false;
         }
     }
-    public Action openClaw() {
-        return new OpenClaw();
+    public Action clowOut() {
+        return new ClawOut();
     }
 
 
-    public class closeClaw implements Action {
+    public class ClawIn implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             intake.collect(1);
             return false;
         }
     }
-    public Action closeClaw() {
-        return new OpenClaw();
+    public Action clawIn() {
+        return new ClawIn();
     }
 
 

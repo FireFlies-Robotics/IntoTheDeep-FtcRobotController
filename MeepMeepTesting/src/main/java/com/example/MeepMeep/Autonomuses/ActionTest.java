@@ -1,10 +1,9 @@
-package com.example.meepmeeptesting.Autonomuses;
+package com.example.MeepMeep.Autonomuses;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
-import com.example.meepmeeptesting.Robot.DefaultBotBuilder;
+import com.example.MeepMeep.Robot.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class ActionTest {
