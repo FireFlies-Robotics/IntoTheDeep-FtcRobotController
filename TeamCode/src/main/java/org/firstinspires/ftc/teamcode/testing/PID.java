@@ -27,7 +27,11 @@ public class PID extends LinearOpMode {
         // Main Loop
         while (opModeIsActive()) {
             elevator.PID();
+//            elevator.extend(gamepad2.left_stick_y);
+            telemetry.addData("elevator pos", elevator.elevatorExtend.getCurrentPosition());
             telemetry.addData("power", elevator.elevatorLeftArm.getPower());
+            telemetry.addData("pidpower", elevator.elevatorLeftArm.getPower());
+
             telemetry.addData("targetpos", elevator.targetPos);
             telemetry.addData("current",Math.abs(elevator.elevatorRightArm.getCurrentPosition()));
             telemetry.update();

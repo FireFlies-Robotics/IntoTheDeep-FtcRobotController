@@ -62,12 +62,18 @@ public class Elevator {
 //        elevatorLeftArm.setPower(1);
 //        elevatorRightArm.setPower(1);
     }
+    public double fPower(int ticks){
+        return (Math.pow(10,-12)*-5*Math.pow(ticks,3)) +
+                (Math.pow(10,-8)*2 * Math.pow(ticks,2))
+                +(Math.pow(10,-5)*4 * ticks)
+                +0.0298;
+    }
     public void PID(){
         controller.setPID(p, i, d);
         int currentPosition = Math.abs(elevatorRightArm.getCurrentPosition());
         double pidPower = controller.calculate(currentPosition,targetPos);
-        double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *f;
-        double power = pidPower + FF;
+        double FF = Math.cos(Math.toRadians(targetPos/ticsPerDegree)) *fPower(currentPosition);
+        double power = pidPower - FF;
 
         elevatorRightArm.setPower(power);
         elevatorLeftArm.setPower(power);
@@ -88,7 +94,7 @@ public class Elevator {
     // this function use value (like the gamepad stick) to give the extension motor power.
     public void extend(double extension){
         boolean useExtend = extension>=0.3 || extension <= -0.3;
-        if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
+        if (elevatorRightArm.getCurrentPosition() > -ARM_MAX_SCORE){
             opMode.telemetry.addLine("1");
             elevatorExtend.setTargetPosition(0);
             elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
