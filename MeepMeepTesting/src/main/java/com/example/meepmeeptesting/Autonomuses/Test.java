@@ -10,7 +10,9 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class Test {
     private double center = 8.5;
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(750);
+        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+
+        MeepMeep meepMeep = new MeepMeep(650);
 //        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
@@ -40,12 +42,12 @@ public class Test {
                 .waitSeconds(1)
                 .lineToY(-60)
                 .splineTo(new Vector2d(62, -62 ), Math.toRadians(30))//                .turn(Math.toRadians(90))
-                .lineToY(30)
-                .turn(Math.toRadians(90))
-                .lineToX(0)
-                .turn(Math.toRadians(90))
-                .lineToY(0)
-                .turn(Math.toRadians(90))
+//                .lineToY(30)
+//                .turn(Math.toRadians(90))
+//                .lineToX(0)
+//                .turn(Math.toRadians(90))
+//                .lineToY(0)
+//                .turn(Math.toRadians(90))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
