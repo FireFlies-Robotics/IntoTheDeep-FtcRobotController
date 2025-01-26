@@ -116,7 +116,7 @@ public class AutoActions{
     public class ClawOut implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            intake.collect(-1);
+            intake.rotateIntakeWheels(-1);
             return false;
         }
     }
@@ -128,7 +128,7 @@ public class AutoActions{
     public class ClawIn implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            intake.collect(1);
+            intake.rotateIntakeWheels(1);
             return false;
         }
     }

@@ -1,5 +1,6 @@
 package com.example.MeepMeep;
 
+import com.example.MeepMeep.Coordinates.RedSpecimenCoordinatesMeepMeep;
 import com.example.MeepMeep.Coordinates.RedSpecimenCoordinatesMeepMeepFire;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
@@ -14,9 +15,8 @@ public class FireFliesRRTesting {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1().position)
-                                .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
-
+                        .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
+                                                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
