@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Elevator {
 
-    final public static int ARM_MAX_LIMIT = -1600;
-     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
+    final public static int ARM_MAX_LIMIT = -1720;
+    final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
-    final public static int ARM_MAX_SCORE = -870;
+    final public static int ARM_MAX_SCORE = -714;
 
     final public static int ARM_MAX_COLLECT= -1000;
 
-    final public static int ELEVATOR_MAX_COLLECT = 1600;
+    final public static int ELEVATOR_MAX_COLLECT = 2600;
     final public static int ELEVATOR_MAX_LIMIT = 3000;
 
     public  DcMotor elevatorExtend;
@@ -28,6 +29,7 @@ public class Elevator {
     }
 
     public void initElevator(){
+
         elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
         elevatorRightArm = opMode.hardwareMap.get(DcMotor.class, "elevatorRightArm");
         elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
@@ -51,7 +53,6 @@ public class Elevator {
     }
 
     public void start(){
-
         elevatorLeftArm.setTargetPosition(ARM_MAX_LIMIT);
         elevatorRightArm.setTargetPosition(ARM_MAX_LIMIT);
         elevatorLeftArm.setPower(1);
@@ -115,7 +116,7 @@ public class Elevator {
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (elevatorRightArm.getTargetPosition() <= ARM_MAX_LIMIT ) {
+        if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT ) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
@@ -130,20 +131,20 @@ public class Elevator {
 
             elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() + 25);
             elevatorRightArm.setTargetPosition(elevatorRightArm.getTargetPosition() + 25);
-            elevatorLeftArm.setPower(0.6);
-            elevatorRightArm.setPower(0.6);
+            elevatorLeftArm.setPower(0.8);
+            elevatorRightArm.setPower(0.8);
 
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (elevatorRightArm.getTargetPosition() >= ARM_MIN_LIMIT) {
+        if (elevatorRightArm.getCurrentPosition() >= ARM_MIN_LIMIT) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-870); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-870);
+        elevatorLeftArm.setTargetPosition(-900); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-900);
         elevatorLeftArm.setPower(0.3);
         elevatorRightArm.setPower(0.3);
 
@@ -151,18 +152,11 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void collect(){
-//        elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        elevatorExtend.setTargetPosition(0);
-//        elevatorExtend.setPower(1);
-        elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        elevatorLeftArm.setTargetPosition(-1300);
-        elevatorRightArm.setTargetPosition(-1300);
-        elevatorLeftArm.setPower(0.3);
-        elevatorRightArm.setPower(0.3);
+        elevatorLeftArm.setTargetPosition(-1690);
+        elevatorRightArm.setTargetPosition(-1690);
+        elevatorLeftArm.setPower(0.4);
+        elevatorRightArm.setPower(0.4);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
-
-
-

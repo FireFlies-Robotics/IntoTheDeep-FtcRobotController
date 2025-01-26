@@ -30,18 +30,18 @@ public class IntakeTesting extends LinearOpMode {
             if (gamepad2.triangle){intake.intakeUp();}
 
             if (gamepad2.circle){
-                intake.collect(1);
+                //intake.collect(1);
 
             }
             else if (gamepad2.square){
-                intake.collect(-1);
+                //intake.collect(-1);
             }
             else if (gamepad2.triangle || !triangle) {
-                intake.liftIntake();
+                //intake.liftIntake();
                 triangle = true;
             }
             else {
-                intake.collect(0);
+                //intake.collect(0);
             }
 //            triangle = false;
 
