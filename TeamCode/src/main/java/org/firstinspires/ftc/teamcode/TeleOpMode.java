@@ -92,8 +92,7 @@ public class TeleOpMode extends LinearOpMode {
                 elevator.rotateForwards();
             }
             if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000
-             )
-            {
+             ) {
                 elevator.rotateBackwords();
             }
             elevator.extend(-gamepad2.left_stick_y);

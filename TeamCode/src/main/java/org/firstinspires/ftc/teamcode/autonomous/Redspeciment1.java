@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Wheels;
 import org.firstinspires.ftc.teamcode.autonomous.coordinates.RedSpecimenCoordinateFire;
@@ -19,10 +20,12 @@ public class Redspeciment1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 //            Wheels wheels = new Wheels(this);
+        Elevator elevator = new Elevator(this);
+            AutoActions autoActions;
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinateFire.getStart());
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinateFire.getStart())
                 .strafeTo(RedSpecimenCoordinateFire.getScore1().position)
-                .turn(90)
+//                .turn(90)
                 .build();
         Action park = drive.actionBuilder(RedSpecimenCoordinateFire.getStart())
                 .strafeToConstantHeading(RedSpecimenCoordinateFire.getPark().position)
@@ -31,9 +34,14 @@ public class Redspeciment1 extends LinearOpMode {
     waitForStart();
 
     if (isStopRequested()) return;
+
+
         Actions.runBlocking(
             new SequentialAction(
                     park
+
+
+
             )
     );
     }
