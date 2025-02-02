@@ -1,4 +1,4 @@
-package com.example.MeepMeep.Coordinates;
+package com.example.MeepMeep.Autonomuses.Coordinates;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
@@ -26,14 +26,16 @@ public class RedSpecimenCoordinatesMeepMeepFire {
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
     private static final double startPoseHeading = Math.toRadians(180);
-
+    private static final double intakePoseHeading = Math.toRadians(-90);
     private static final double scorePoseHeading = Math.toRadians(90);
+    private static final double scorePoseNewHeading = Math.toRadians(270);
+
 
 
     private static final Pose2d start = new Pose2d(startX, startY, startPoseHeading);
 
     private static final Pose2d score1 = new Pose2d(score1X, scoreY, scorePoseHeading);
-    private static final Pose2d score2 = new Pose2d(score2X, scoreY, startPoseHeading);
+    private static final Pose2d score2 = new Pose2d(score2X, scoreY, scorePoseHeading);
     private static final Pose2d score3 = new Pose2d(score3X, scoreY, startPoseHeading);
     private static final Pose2d score4 = new Pose2d(score4X, scoreY, startPoseHeading);
     private static final Pose2d score5 = new Pose2d(score5X, scoreY, startPoseHeading);
@@ -49,8 +51,8 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final Pose2d moveSpecimenEnd2 = new Pose2d(specimen2X, moveSpecimensEndY, startPoseHeading);
     private static final Pose2d moveSpecimenEnd3 = new Pose2d(specimen3X, moveSpecimensEndY, startPoseHeading);
 
-    private static final Pose2d intakeStart = new Pose2d(intakeX, wallStartY, startPoseHeading);
-    private static final Pose2d intakeEnd = new Pose2d(intakeX, wallEndY, startPoseHeading);
+    private static final Pose2d intakeStart = new Pose2d(intakeX, wallStartY, intakePoseHeading);
+    private static final Pose2d intakeEnd = new Pose2d(intakeX, wallEndY, intakePoseHeading);
 
 
     private static final Pose2d park = new Pose2d(parkX, wallEndY, startPoseHeading);

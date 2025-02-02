@@ -1,53 +1,20 @@
-package com.example.MeepMeep;
+package com.example.MeepMeep.Autonomuses.RedSpecimens;
 
 import com.example.MeepMeep.Autonomuses.Coordinates.RedSpecimenCoordinatesMeepMeepFire;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class MeepMeep {
+public class FireFliesRedSpecimen1 {
     public static void main(String[] args) {
         com.noahbres.meepmeep.MeepMeep meepMeep = new com.noahbres.meepmeep.MeepMeep(600);
 
         RoadRunnerBotEntity botRedSpecimen = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13.4).build();
-        RoadRunnerBotEntity botBlueSpecimen = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 14).build();
-        RoadRunnerBotEntity botRedSample = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 14).build();
-        RoadRunnerBotEntity botBlueSample = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 14).build();
 
         botRedSpecimen.setDimensions(17, 17);
-        botBlueSpecimen.setDimensions(15, 16.5);
-        botBlueSample.setDimensions(15, 16.5);
-        botRedSample.setDimensions(15, 16.5);
+
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1().position)
-
-                .setTangent(RedSpecimenCoordinatesMeepMeepFire.getMidWayMoveSpecimensTangent())
-                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getMidWayMoveSpecimens().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimensStart0().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenStart1().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenEnd1().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenStart1().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-//
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenStart2().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenEnd2().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenStart2().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenStart3().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getMoveSpecimenEnd3().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .setTangent(RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore2(), RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
-                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getStart().heading)
-
+                        .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
@@ -128,9 +95,6 @@ public class MeepMeep {
         meepMeep.setBackground(com.noahbres.meepmeep.MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(botRedSpecimen).start()
-                .addEntity(botBlueSpecimen).start()
-                .addEntity(botRedSample).start()
-                .addEntity(botBlueSample).start();
+                .addEntity(botRedSpecimen).start();
     }
 }

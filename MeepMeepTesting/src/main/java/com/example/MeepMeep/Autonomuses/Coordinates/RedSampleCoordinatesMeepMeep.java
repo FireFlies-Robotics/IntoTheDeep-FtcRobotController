@@ -1,4 +1,4 @@
-package com.example.MeepMeep.Coordinates;
+package com.example.MeepMeep.Autonomuses.Coordinates;
 
 import com.acmerobotics.roadrunner.Pose2d;
 

@@ -1,9 +1,6 @@
 package com.example.MeepMeep.meepmeeptesting;
 
-import com.example.MeepMeep.Coordinates.BlueSampleCoordinatesMeepMeep;
-import com.example.MeepMeep.Coordinates.BlueSpecimenCoordinatesMeepMeep;
-import com.example.MeepMeep.Coordinates.RedSampleCoordinatesMeepMeep;
-import com.example.MeepMeep.Coordinates.RedSpecimenCoordinatesMeepMeep;
+import com.example.MeepMeep.Autonomuses.Coordinates.RedSpecimenCoordinatesMeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 

@@ -1,11 +1,10 @@
-package com.example.MeepMeep;
+package com.example.MeepMeep.Autonomuses.RedSpecimens;
 
-import com.example.MeepMeep.Coordinates.RedSpecimenCoordinatesMeepMeep;
-import com.example.MeepMeep.Coordinates.RedSpecimenCoordinatesMeepMeepFire;
+import com.example.MeepMeep.Autonomuses.Coordinates.RedSpecimenCoordinatesMeepMeepFire;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class FireFliesRRTesting {
+public class FireFliesRedSpecimen2 {
     public static void main(String[] args) {
         com.noahbres.meepmeep.MeepMeep meepMeep = new com.noahbres.meepmeep.MeepMeep(600);
 
@@ -15,8 +14,15 @@ public class FireFliesRRTesting {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                        .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
-                                                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
+                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
+                .setTangent(0)
+                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
+                        .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().heading)
+                .setTangent(Math.toRadians(90))
+
+                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore2(),RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
+                .build());
+
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
@@ -91,7 +97,6 @@ public class FireFliesRRTesting {
 //                .waitSeconds(26)
 //                .strafeToConstantHeading(BlueSampleCoordinatesMeepMeep.getPark().position)
 
-                .build());
 
 
         meepMeep.setBackground(com.noahbres.meepmeep.MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
