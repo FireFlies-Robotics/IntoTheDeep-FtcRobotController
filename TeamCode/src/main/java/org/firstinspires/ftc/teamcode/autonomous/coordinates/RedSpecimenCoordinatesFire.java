@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous.coordinates;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-public class RedSpecimenCoordinateFire {
+public class RedSpecimenCoordinatesFire {
     private static final double startX = 8;
     private static final double startY = -63;
     private static final double score1X = 8;
@@ -20,17 +20,19 @@ public class RedSpecimenCoordinateFire {
     private static final double specimen3X = 63;
     private static final double wallStartY = -50;
     private static final double wallEndY = -60;
+
     private static final double intakeX = 47;
     private static final double parkX = 60;
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
-    private static final double startPoseHeading = Math.toRadians(90);
-    private static final double scorePoseHeading = Math.toRadians(270);
+    private static final double startPoseHeading = Math.toRadians(180);
+
+    private static final double scorePoseHeading = Math.toRadians(90);
 
 
     private static final Pose2d start = new Pose2d(startX, startY, startPoseHeading);
 
-    private static final Pose2d score1 = new Pose2d(score1X, scoreY, startPoseHeading);
+    private static final Pose2d score1 = new Pose2d(score1X, scoreY, scorePoseHeading);
     private static final Pose2d score2 = new Pose2d(score2X, scoreY, startPoseHeading);
     private static final Pose2d score3 = new Pose2d(score3X, scoreY, startPoseHeading);
     private static final Pose2d score4 = new Pose2d(score4X, scoreY, startPoseHeading);
