@@ -14,9 +14,14 @@ public class FireFliesRRTesting {
         botRedSpecimen.setDimensions(17, 17);
 
 
-        botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                        .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
-                                                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
+        botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getScore1())
+                        .setTangent(Math.toRadians(0))
+                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getspecimentpush1().position, RedSpecimenCoordinatesMeepMeepFire.getspecimentpush1().heading)
+
+                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getObservation().position)
+                .strafeTo((RedSpecimenCoordinatesMeepMeepFire.getspecimentpush1().position))
+                .strafeTo((RedSpecimenCoordinatesMeepMeepFire.getspecimentpush2().position))
+                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getObservation().position)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
@@ -94,7 +99,7 @@ public class FireFliesRRTesting {
                 .build());
 
 
-        meepMeep.setBackground(com.noahbres.meepmeep.MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(botRedSpecimen).start();

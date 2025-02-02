@@ -3,6 +3,8 @@ package com.example.MeepMeep.Coordinates;
 import com.acmerobotics.roadrunner.Pose2d;
 
 public class RedSpecimenCoordinatesMeepMeepFire {
+
+    private static final double startPoseHeading = Math.toRadians(180);
     private static final double startX = 8;
     private static final double startY = -63;
     private static final double score1X = 8;
@@ -15,9 +17,24 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double moveSpecimensStart0X = 36;
     private static final double moveSpecimensStartY = -13;
     private static final double moveSpecimensEndY = -46;
-    private static final double specimen1X = 43;
-    private static final double specimen2X = 56;
+    private static final double specimen1X = 42;
+    private static final double specimen2X = 53;
     private static final double specimen3X = 63;
+
+    private static final double pushspecimenY = -8;
+    private static final double pushspecimen1X = 42;
+    private static final double pushspecimen2X = 55;
+    private static final double pushspecimen3X = 70
+            ;
+
+    private static final double ObservationZoneY = -50;
+    private static final double ObservationZoneX = 47;
+    private static final Pose2d specimentpush1 = new Pose2d(pushspecimen1X, pushspecimenY, startPoseHeading);
+    private static final Pose2d specimentpush2 = new Pose2d(pushspecimen2X, pushspecimenY, startPoseHeading);
+    private static final Pose2d specimentpush3 = new Pose2d(pushspecimen3X, pushspecimenY, startPoseHeading);
+    private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
+
+
     private static final double wallStartY = -50;
     private static final double wallEndY = -60;
 
@@ -25,8 +42,6 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double parkX = 60;
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
-    private static final double startPoseHeading = Math.toRadians(180);
-
     private static final double scorePoseHeading = Math.toRadians(90);
 
 
@@ -63,6 +78,13 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     public static Pose2d getScore1() {
         return score1;
     }
+
+    public static Pose2d getspecimentpush1() {
+        return specimentpush1;
+    }
+    public static Pose2d getspecimentpush2() {return specimentpush2;}
+    public static Pose2d getspecimentpush3() {return specimentpush3;}
+    public static Pose2d getObservation() {return Observation;}
 
     public static Pose2d getScore2() {
         return score2;
