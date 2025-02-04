@@ -91,7 +91,7 @@ public class TeleOpMode extends LinearOpMode {
             ) {
                 elevator.rotateForwards();
             }
-            if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000
+            else if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000
              ) {
                 elevator.rotateBackwords();
             }
@@ -112,12 +112,12 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad2.triangle){intake.intakeUp();}
 //        elevator.stabilise();
 
-            if (gamepad2.right_bumper //&& elevator.elevatorExtend.getCurrentPosition() <= 1300
+            if (gamepad2.right_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000
                      ){
                 //intake.intakeDown();
                 elevator.collect();
             }
-            if (gamepad2.left_bumper //&& elevator.elevatorExtend.getCurrentPosition() <= 1000
+            else if (gamepad2.left_bumper && elevator.elevatorExtend.getCurrentPosition() <= 1000
              ){
                 elevator.score();
                 intake.intakeUp();
