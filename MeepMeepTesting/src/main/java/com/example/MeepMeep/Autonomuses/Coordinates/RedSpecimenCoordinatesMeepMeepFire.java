@@ -42,7 +42,6 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double parkX = 60;
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
-    private static final double startPoseHeading = Math.toRadians(180);
 
     private static final double scorePoseHeading = Math.toRadians(90);
 

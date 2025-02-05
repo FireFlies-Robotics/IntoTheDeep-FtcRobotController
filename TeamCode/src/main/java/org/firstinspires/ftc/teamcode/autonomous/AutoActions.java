@@ -11,6 +11,17 @@ import org.firstinspires.ftc.teamcode.Intake;
 public class AutoActions{
     Elevator elevator;
     Intake intake;
+
+    public AutoActions(Elevator elevator, Intake intake) {
+        this.elevator = elevator;
+        this.intake = intake;
+    }
+//
+//    public AutoActions(Elevator elevator, Intake intake) {
+//        this.elevator = elevator;
+//        this.intake = intake;
+//    }
+
     public class ElevatorUp implements Action {
         private boolean initialized = false;
 
@@ -19,11 +30,14 @@ public class AutoActions{
             if (!initialized) {
                 elevator.elevatorExtend.setPower(0.8);
                 initialized = true;
+
             }
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
-            packet.put("elevatorPos", pos);
-            if (pos > 1000) {
+            packet.put("armPos", pos);
+            if (pos < 650) {
+                elevator.elevatorExtend.setPower(0.8);
+
                 return true;
             } else {
                 elevator.elevatorExtend.setPower(0);
@@ -33,7 +47,7 @@ public class AutoActions{
 
     }
     public Action elevatorDown() {
-        return new ElevatorUp();
+        return new ElevatorDown();
     }
     public class ElevatorDown implements Action {
         private boolean initialized = false;
@@ -66,14 +80,15 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorLeftArm.setPower(0.8);
-                elevator.elevatorRightArm.setPower(0.8);
+                elevator.elevatorLeftArm.setPower(-0.8);
+                elevator.elevatorRightArm.setPower(-0.8);
                 initialized = true;
+
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -870) {
+            if (pos > -2000) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -135,6 +150,4 @@ public class AutoActions{
     public Action clawIn() {
         return new ClawIn();
     }
-
-
 }

@@ -1,9 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
 
 public class Elevator {
 
@@ -117,7 +123,7 @@ public class Elevator {
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT ) {
+        else if (elevatorRightArm.getTargetPosition() <= ARM_MAX_LIMIT ) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
@@ -138,7 +144,7 @@ public class Elevator {
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (elevatorRightArm.getCurrentPosition() >= ARM_MIN_LIMIT) {
+        else if (elevatorRightArm.getTargetPosition() >= ARM_MIN_LIMIT) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
@@ -160,4 +166,33 @@ public class Elevator {
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
+
+
+    public class ArmUp implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevatorLeftArm.setPower(0.8);
+                elevatorRightArm.setPower(0.8);
+                initialized = true;
+            }
+
+            double pos = elevatorRightArm.getCurrentPosition();
+            packet.put("armPos", pos);
+            if (pos > -855) {
+                return true;
+            } else {
+                elevatorLeftArm.setPower(0);
+                elevatorRightArm.setPower(0);
+                return false;
+            }
+        }
+    }
+    public Action armUp() {
+        return new ArmUp();
+    }
+
 }

@@ -14,7 +14,8 @@ public class FireFliesRedSpecimen1 {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                        .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
+                        .setTangent(Math.toRadians(90))
+                        .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1(),RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
