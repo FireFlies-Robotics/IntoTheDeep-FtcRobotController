@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
@@ -28,16 +29,20 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorExtend.setPower(0.8);
-                initialized = true;
+                    elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorExtend.setPower(0.7);
+
+                double power = elevator.elevatorExtend.getPower();
+                packet.put("elevator power", power);
+
+                initialized = true;
             }
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
-            packet.put("armPos", pos);
-            if (pos < 650) {
-                elevator.elevatorExtend.setPower(0.8);
-
+            packet.put("elevator pos", pos);
+            if (pos < 1100) {
                 return true;
             } else {
                 elevator.elevatorExtend.setPower(0);
@@ -45,9 +50,6 @@ public class AutoActions{
             }
         }
 
-    }
-    public Action elevatorDown() {
-        return new ElevatorDown();
     }
     public class ElevatorDown implements Action {
         private boolean initialized = false;
@@ -55,13 +57,20 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorExtend.setPower(-0.8);
+                elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorExtend.setPower(-1);
+
+                double power = elevator.elevatorExtend.getPower();
+                packet.put("elevator power", power);
+
                 initialized = true;
             }
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
-            packet.put("elevatorPos", pos);
-            if (pos < 20) {
+            packet.put("elevator pos", pos);
+            if (pos > 20) {
                 return true;
             } else {
                 elevator.elevatorExtend.setPower(0);
@@ -69,6 +78,10 @@ public class AutoActions{
             }
         }
 
+    }
+
+    public Action elevatorDown() {
+        return new ElevatorDown();
     }
     public Action elevatorUp() {
         return new ElevatorUp();
@@ -80,15 +93,15 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorLeftArm.setPower(-0.8);
-                elevator.elevatorRightArm.setPower(-0.8);
+                elevator.elevatorLeftArm.setPower(-0.6);
+                elevator.elevatorRightArm.setPower(-0.6);
                 initialized = true;
 
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -2000) {
+            if (pos > -1750) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -143,7 +156,8 @@ public class AutoActions{
     public class ClawIn implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            intake.rotateIntakeWheels(1);
+            intake.leftIntake.setPower(1);
+            intake.rightIntake.setPower(1);
             return false;
         }
     }

@@ -16,10 +16,10 @@ public class Elevator {
     final public static int ARM_MAX_LIMIT = -3890;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
-    final public static int ARM_MAX_SCORE = -934
+    final public static int ARM_MAX_SCORE = -1600
             ;
 
-    final public static int ARM_MAX_COLLECT= -1000;
+    final public static int ARM_MAX_COLLECT= -2300;
 
     final public static int ELEVATOR_MAX_COLLECT = 2600;
     final public static int ELEVATOR_MAX_LIMIT = 3000;
@@ -52,6 +52,10 @@ public class Elevator {
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        elevatorRightArm.setTargetPosition(0);
+        elevatorLeftArm.setTargetPosition(0);
+
+
 
         elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
@@ -74,11 +78,15 @@ public class Elevator {
     public void extend(double extension){
         boolean useExtend = extension>=0.3 || extension <= -0.3;
         if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
-            opMode.telemetry.addLine("1");
-            elevatorExtend.setTargetPosition(0);
-            elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorExtend.setPower(1);
+             elevatorExtend.setPower(-1);
         }
+//        if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
+//            opMode.telemetry.addLine("1");
+//            elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            elevatorExtend.setTargetPosition(0);
+//            elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            elevatorExtend.setPower(1);
+//        }
         else if (useExtend
                 && elevatorRightArm.getCurrentPosition() > ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() < ELEVATOR_MAX_LIMIT) {
@@ -90,7 +98,7 @@ public class Elevator {
                 && elevatorRightArm.getCurrentPosition() > ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() >= ELEVATOR_MAX_LIMIT) {
             opMode.telemetry.addLine("3");
-            elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             elevatorExtend.setPower(Math.min(extension, 0));
         }
         else if (useExtend
@@ -103,11 +111,12 @@ public class Elevator {
         else if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_COLLECT
                 && elevatorExtend.getCurrentPosition() >= ELEVATOR_MAX_COLLECT) {
             opMode.telemetry.addLine("5");
-            elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            elevatorExtend.setPower(Math.min(extension, -0));
+            elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            elevatorExtend.setPower(Math.min(extension, -0.3));
         }
         else {
             opMode.telemetry.addLine("6");
+            elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             elevatorExtend.setPower(0);
         }
     }
@@ -123,7 +132,7 @@ public class Elevator {
             elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (elevatorRightArm.getTargetPosition() <= ARM_MAX_LIMIT ) {
+        else if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT || elevatorExtend.getTargetPosition() <= ARM_MAX_LIMIT ) {
             elevatorLeftArm.setPower(0);
             elevatorRightArm.setPower(0);
         }
@@ -134,7 +143,7 @@ public class Elevator {
 
 
     public void rotateBackwords(){
-        if (elevatorRightArm.getTargetPosition() <= ARM_MIN_LIMIT ) {
+        if (elevatorRightArm.getTargetPosition() < ARM_MIN_LIMIT ) {
 
             elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() + 50);
             elevatorRightArm.setTargetPosition(elevatorRightArm.getTargetPosition() + 50);
@@ -150,8 +159,8 @@ public class Elevator {
         }
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-1963); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-1963);
+        elevatorLeftArm.setTargetPosition(-2040); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-2040);
         elevatorLeftArm.setPower(0.8);
         elevatorRightArm.setPower(0.8);
 
@@ -166,33 +175,4 @@ public class Elevator {
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-
-
-
-    public class ArmUp implements Action {
-        private boolean initialized = false;
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            if (!initialized) {
-                elevatorLeftArm.setPower(0.8);
-                elevatorRightArm.setPower(0.8);
-                initialized = true;
-            }
-
-            double pos = elevatorRightArm.getCurrentPosition();
-            packet.put("armPos", pos);
-            if (pos > -855) {
-                return true;
-            } else {
-                elevatorLeftArm.setPower(0);
-                elevatorRightArm.setPower(0);
-                return false;
-            }
-        }
-    }
-    public Action armUp() {
-        return new ArmUp();
-    }
-
 }

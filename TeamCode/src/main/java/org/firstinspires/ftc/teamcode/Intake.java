@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Intake {
 
-    private CRServo leftIntake;
-    private CRServo rightIntake;
+    public CRServo leftIntake;
+    public CRServo rightIntake;
 
 
     private CRServo intakeServo;

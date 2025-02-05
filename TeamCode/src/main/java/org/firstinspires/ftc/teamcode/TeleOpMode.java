@@ -132,7 +132,16 @@ public class TeleOpMode extends LinearOpMode {
             else {
                 wheels.setMaxSpeed(1);
             }
+            telemetry.addData("elevator power", elevator.elevatorExtend.getPower());
+
             telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
+
+            telemetry.addData(" right position", elevator.elevatorRightArm.getCurrentPosition());
+            telemetry.addData(" left position", elevator.elevatorLeftArm.getCurrentPosition());
+
+            telemetry.addData("targetPosition left", elevator.elevatorLeftArm.getTargetPosition());
+            telemetry.addData("targetPosition right", elevator.elevatorRightArm.getTargetPosition());
+
             telemetry.update();
         }
     }
