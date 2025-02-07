@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
 
 public class Elevator {
 
-    final public static int ARM_MAX_LIMIT = -3890;
+    final public static int ARM_MAX_LIMIT = -3609;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
     final public static int ARM_MAX_SCORE = -1600
@@ -159,8 +159,8 @@ public class Elevator {
         }
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-2040); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-2040);
+        elevatorLeftArm.setTargetPosition(-1790); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-1790);
         elevatorLeftArm.setPower(0.8);
         elevatorRightArm.setPower(0.8);
 
@@ -168,8 +168,8 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void collect(){
-        elevatorLeftArm.setTargetPosition(-3909);
-        elevatorRightArm.setTargetPosition(-3909);
+        elevatorLeftArm.setTargetPosition(-3010);
+        elevatorRightArm.setTargetPosition(-3010);
         elevatorLeftArm.setPower(0.8);
         elevatorRightArm.setPower(0.8);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);

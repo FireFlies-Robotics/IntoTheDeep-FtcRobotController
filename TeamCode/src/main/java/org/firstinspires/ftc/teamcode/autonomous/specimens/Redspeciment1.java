@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
@@ -35,10 +36,16 @@ public class Redspeciment1 extends LinearOpMode {
         autoActions = new AutoActions(elevator, intake);  // Pass required dependencies
 MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
+
+
         intake.initIntake();
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
-        Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
+        Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .build();
 
+        Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(RedSpecimenCoordinatesFire.getScore1(),RedSpecimenCoordinatesFire.getScore1().heading )
                 .build();
@@ -53,21 +60,15 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
         telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());
         Actions.runBlocking(
             new SequentialAction(
-                    autoActions.armUp(),
                     new ParallelAction(
-                            scorePreLoad,
-                            autoActions.elevatorUp()),
-                    autoActions.elevatorDown(),
-                    park
-//                        autoActions.armUp(),
-//                    new ParallelAction(
-//                        scorePreLoad,
-//                            autoActions.elevatorUp()
-//                    ),
-//                    new ParallelAction(
-//                            autoActions.elevatorDown(),
-//                    autoActions.clawIn()
-//                    )
+                            goToScore,
+                            autoActions.armUp()
+                    ),
+                    new ParallelAction(
+                        scorePreLoad,
+                            autoActions.elevatorUp()
+                    ),
+                    autoActions.elevatorDown()
             )
 
         );

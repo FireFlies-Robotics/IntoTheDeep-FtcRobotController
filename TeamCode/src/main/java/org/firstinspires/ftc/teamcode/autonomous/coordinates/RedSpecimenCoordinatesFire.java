@@ -21,6 +21,11 @@ public class RedSpecimenCoordinatesFire {
     private static final double specimen2X = 53;
     private static final double specimen3X = 63;
 
+    private static final double startScoreX = 0;
+    private static final double startScoreY = -40;
+
+
+
     private static final double pushspecimenY = -8;
     private static final double pushspecimen1X = 42;
     private static final double pushspecimen2X = 55;
@@ -34,7 +39,6 @@ public class RedSpecimenCoordinatesFire {
     private static final Pose2d specimentpush3 = new Pose2d(pushspecimen3X, pushspecimenY, startPoseHeading);
     private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
 
-
     private static final double wallStartY = -50;
     private static final double wallEndY = -60;
 
@@ -44,6 +48,8 @@ public class RedSpecimenCoordinatesFire {
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
 
     private static final double scorePoseHeading = Math.toRadians(90);
+    private static final Pose2d startScore = new Pose2d(startX, startScoreY, scorePoseHeading);
+
 
 
     private static final Pose2d start = new Pose2d(startX, startY, startPoseHeading);
@@ -75,7 +81,7 @@ public class RedSpecimenCoordinatesFire {
     public static Pose2d getStart() {
         return start;
     }
-
+    public static Pose2d getStartScore(){return startScore;}
     public static Pose2d getScore1() {
         return score1;
     }
@@ -149,5 +155,4 @@ public class RedSpecimenCoordinatesFire {
     public static double getMidWayMoveSpecimensTangent() {
         return midWayMoveSpecimensTangent;
     }
-
 }
