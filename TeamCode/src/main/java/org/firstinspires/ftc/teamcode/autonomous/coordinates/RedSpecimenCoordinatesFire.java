@@ -22,7 +22,7 @@ public class RedSpecimenCoordinatesFire {
     private static final double specimen3X = 63;
 
     private static final double startScoreX = 0;
-    private static final double startScoreY = -40;
+    private static final double startScoreY = -50;
 
 
 
