@@ -14,89 +14,20 @@ public class FireFliesRedSpecimen2 {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
-                .setTangent(0)
-                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
-                        .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().heading)
                 .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getStartScore(), RedSpecimenCoordinatesMeepMeepFire.getStartScore().heading)
+                .waitSeconds(0.5)
+                // לך לתחילת הפריקה
+                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
+//                .setTangent(Math.toRadians(-45))
+//                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
+                //תפרוק
+                        .strafeToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().position, RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
+                        .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position)
+                        .setTangent(Math.toRadians(115))
+                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore2(), RedSpecimenCoordinatesMeepMeepFire.getScore2().heading)
 
-                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore2(),RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
                 .build());
-
-//                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
-//
-//                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore5().component1())
-//
-//                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getPark().position)
-//
-//                .build());
-//
-//        botBlueSpecimen.runAction(botBlueSpecimen.getDrive().actionBuilder(BlueSpecimenCoordinatesMeepMeep.getStart())
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getScore1().position)
-//                .waitSeconds(1)
-//
-//                .setTangent(BlueSpecimenCoordinatesMeepMeep.getMidWayMoveSpecimensTangent())
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMidWayMoveSpecimens().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimensStart0().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenStart1().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenEnd1().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenStart1().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenStart2().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenEnd2().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenStart2().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenStart3().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getMoveSpecimenEnd3().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .setTangent(BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeStart().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeEnd().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getScore2().component1())
-//                .waitSeconds(1)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeStart().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeEnd().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getScore3().component1())
-//                .waitSeconds(1)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeStart().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeEnd().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getScore4().component1())
-//                .waitSeconds(1)
-//
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeStart().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getIntakeEnd().position, BlueSpecimenCoordinatesMeepMeep.getStart().heading)
-//
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getScore5().component1())
-//                .waitSeconds(1)
-//
-//                .strafeToConstantHeading(BlueSpecimenCoordinatesMeepMeep.getPark().position)
-//
-//                .build());
-//
-//        botRedSample.runAction(botRedSample.getDrive().actionBuilder(RedSampleCoordinatesMeepMeep.getStart())
-//                .waitSeconds(26)
-//                .strafeToConstantHeading(RedSampleCoordinatesMeepMeep.getPark().position)
-//
-//                .build());
-//
-//        botBlueSample.runAction(botBlueSample.getDrive().actionBuilder(BlueSampleCoordinatesMeepMeep.getStart())
-//                .waitSeconds(26)
-//                .strafeToConstantHeading(BlueSampleCoordinatesMeepMeep.getPark().position)
-
 
 
         meepMeep.setBackground(com.noahbres.meepmeep.MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)

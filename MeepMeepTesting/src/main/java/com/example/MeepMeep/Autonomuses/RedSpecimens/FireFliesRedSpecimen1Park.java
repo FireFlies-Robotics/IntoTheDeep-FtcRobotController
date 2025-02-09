@@ -14,8 +14,16 @@ public class FireFliesRedSpecimen1Park {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())
-                .splineTo(RedSpecimenCoordinatesMeepMeepFire.getScore1().position,RedSpecimenCoordinatesMeepMeepFire.getScore1().heading )
-                .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getStartScore(), RedSpecimenCoordinatesMeepMeepFire.getStartScore().heading)
+                .waitSeconds(0.5)
+                // לך לתחילת הפריקה
+                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
+                        .setTangent(Math.toRadians(315))
+                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getPark().position, RedSpecimenCoordinatesMeepMeepFire.getPark().heading)
+
+//
+//                .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getPark().position)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
