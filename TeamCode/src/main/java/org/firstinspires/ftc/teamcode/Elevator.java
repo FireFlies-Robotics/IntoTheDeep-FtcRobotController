@@ -6,23 +6,23 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
 
 public class Elevator {
-
-elevator    final public static int ARM_MAX_LIMIT = -3300;
+    public static int ARM_MAX_LIMIT = -2690;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
-    final public static int ARM_MAX_SCORE = -1450;
+    final public static int ARM_MAX_SCORE = -1250;
             ;
 
     final public static int ARM_MAX_COLLECT= -2300;
 
-    final public static int ELEVATOR_MAX_COLLECT = 2600;
-    final public static int ELEVATOR_MAX_LIMIT = 3000;
+    final public static int ELEVATOR_MAX_COLLECT = 2100;
+    final public static int ELEVATOR_MAX_LIMIT = 3300;
 
     public  DcMotor elevatorExtend;
     public DcMotor elevatorLeftArm;
@@ -36,7 +36,6 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
     }
 
     public void initElevator(){
-
         elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
         elevatorRightArm = opMode.hardwareMap.get(DcMotor.class, "elevatorRightArm");
         elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
@@ -57,7 +56,7 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
 
 
 
-        elevatorRightArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
+        elevatorLeftArm.setDirection(DcMotorSimple.Direction.REVERSE);//todo check which motor to reverse
 
 //        elevatorLeftArm.setPower(1);
 //        elevatorRightArm.setPower(1);
@@ -124,8 +123,8 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
     public void rotateForwards(){
         if (elevatorRightArm.getTargetPosition() >= ARM_MAX_LIMIT) {
 
-            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() - 40);
-            elevatorRightArm.setTargetPosition(elevatorRightArm.getTargetPosition() - 40);
+            elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() - 25);
+            elevatorRightArm.setTargetPosition(elevatorRightArm.getTargetPosition() - 25);
             elevatorLeftArm.setPower(1);
             elevatorRightArm.setPower(1);
 
@@ -133,8 +132,14 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else if (elevatorRightArm.getCurrentPosition() <= ARM_MAX_LIMIT) {
-            elevatorLeftArm.setPower(0);
-            elevatorRightArm.setPower(0);
+//
+//            elevatorLeftArm.setTargetPosition(ARM_MAX_LIMIT);
+//            elevatorRightArm.setTargetPosition(ARM_MAX_LIMIT);
+//            elevatorLeftArm.setPower(1);
+//            elevatorRightArm.setPower(1);
+//
+//            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 
@@ -154,13 +159,20 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
             elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else if (elevatorRightArm.getTargetPosition() >= ARM_MIN_LIMIT) {
-            elevatorLeftArm.setPower(0);
-            elevatorRightArm.setPower(0);
+//
+//            elevatorLeftArm.setTargetPosition(ARM_MIN_LIMIT);
+//            elevatorRightArm.setTargetPosition(ARM_MIN_LIMIT);
+//            elevatorLeftArm.setPower(1);
+//            elevatorRightArm.setPower(1);
+//
+//            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-1500); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-1500);
+        elevatorLeftArm.setTargetPosition(-1260); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-1260);
         elevatorLeftArm.setPower(1);
         elevatorRightArm.setPower(1);
 
@@ -168,8 +180,16 @@ elevator    final public static int ARM_MAX_LIMIT = -3300;
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void collect(){
-        elevatorLeftArm.setTargetPosition(-2700);
-        elevatorRightArm.setTargetPosition(-2700);
+        elevatorLeftArm.setTargetPosition(-2440);
+        elevatorRightArm.setTargetPosition(-2440);
+        elevatorLeftArm.setPower(1);
+        elevatorRightArm.setPower(1);
+        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void scoreSpecimen(){
+        elevatorLeftArm.setTargetPosition(-1500);
+        elevatorRightArm.setTargetPosition(-1500);
         elevatorLeftArm.setPower(1);
         elevatorRightArm.setPower(1);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);

@@ -41,13 +41,13 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
         intake.initIntake();
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
         Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
-                .setTangent(Math.toRadians(90))
+                .setTangent(Math.toRadians(90)).setTangent(Math.toRadians(90))
                 .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
                 .build();
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
-                .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(RedSpecimenCoordinatesFire.getScore1(),RedSpecimenCoordinatesFire.getScore1().heading )
+                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading)
+
                 .build();
         Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position)
@@ -65,10 +65,10 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
                             autoActions.armUp()
                     ),
                     new ParallelAction(
-                        scorePreLoad,
+                            scorePreLoad,
                             autoActions.elevatorUp()
-                    ),
-                    autoActions.elevatorDown()
+                    )
+
             )
 
         );

@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Main OpMode", group="Linear OpMode")
+@Config
 //@Disabled
 public class TeleOpMode extends LinearOpMode {
 
@@ -51,9 +52,7 @@ public class TeleOpMode extends LinearOpMode {
     IMU imu; // Declare class for getting robot angles
 
     @Override
-
     public void runOpMode() {
-
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -121,6 +120,9 @@ public class TeleOpMode extends LinearOpMode {
              ){
                 elevator.score();
                 intake.intakeUp();
+            }
+            else if (gamepad2.left_trigger >= 0.2){
+                elevator.scoreSpecimen();
             }
 
             if (gamepad1.left_trigger > 0.2) {

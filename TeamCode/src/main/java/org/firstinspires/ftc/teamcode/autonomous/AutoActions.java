@@ -32,7 +32,7 @@ public class AutoActions{
                     elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.elevatorExtend.setPower(0.7);
+                elevator.elevatorExtend.setPower(1);
 
                 double power = elevator.elevatorExtend.getPower();
                 packet.put("elevator power", power);
@@ -42,7 +42,7 @@ public class AutoActions{
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 1100) {
+            if (pos < 414) {
                 return true;
             } else {
                 elevator.elevatorExtend.setPower(0);
@@ -93,15 +93,15 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorLeftArm.setPower(-0.6);
-                elevator.elevatorRightArm.setPower(-0.6);
+                elevator.elevatorLeftArm.setPower(-1);
+                elevator.elevatorRightArm.setPower(-1);
                 initialized = true;
 
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1750) {
+            if (pos > -1500) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);

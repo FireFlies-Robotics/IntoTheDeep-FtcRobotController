@@ -15,7 +15,7 @@ public class BlueSample4Park {
                 .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 
                 .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
