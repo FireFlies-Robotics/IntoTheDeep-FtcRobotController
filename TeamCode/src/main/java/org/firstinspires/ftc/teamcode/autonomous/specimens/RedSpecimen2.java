@@ -10,14 +10,12 @@ import com.acmerobotics.roadrunner.MinVelConstraint;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2dDual;
 import com.acmerobotics.roadrunner.PosePath;
-import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.VelConstraint;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
@@ -29,9 +27,9 @@ import org.firstinspires.ftc.teamcode.autonomous.coordinates.RedSpecimenCoordina
 import java.util.Arrays;
 
 @Config
-@Autonomous (name = "redSpecimen1 park", group = "autonomus")
+@Autonomous (name = "redSpecimen2", group = "autonomus")
 
-public class Redspeciment1 extends LinearOpMode {
+public class RedSpecimen2 extends LinearOpMode {
     Wheels wheels;
     AutoActions autoActions;
 
@@ -41,7 +39,7 @@ public class Redspeciment1 extends LinearOpMode {
         Elevator elevator = new Elevator(this);
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
         autoActions = new AutoActions(elevator, intake);  // Pass required dependencies
-MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
+        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
 
 
@@ -54,8 +52,11 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
                 .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading)
-
                 .build();
+        Action backOff = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
+                .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
+                .build();
+
         VelConstraint con = new VelConstraint() {
             @Override
             public double maxRobotVel(@NonNull Pose2dDual<Arclength> pose2dDual, @NonNull PosePath posePath, double v) {
@@ -65,30 +66,41 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
         Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position,con)
                 .build();
+        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
+                .strafeToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart().position, RedSpecimenCoordinatesFire.getIntakeStart().heading)
+                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
+                        .build();
 
-    waitForStart();
+
+
+        waitForStart();
 
         if (isStopRequested()) return;
 
         telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());
         Actions.runBlocking(
-            new SequentialAction(
-                    new ParallelAction(
-                            autoActions.armUp(),
-                            goToScore
-//                            autoActions.armUp()
+                new SequentialAction(
+                        new ParallelAction(
+                                autoActions.armUp(),
+                                goToScore
+                        ),
+                        new ParallelAction(
+                                scorePreLoad,
+                                autoActions.elevatorUp()
+                        ),
+                        new ParallelAction(
+                                autoActions.elevatorDown(),
+                                autoActions.armDown()),
+                        backOff,
+                        new ParallelAction(
+                                collect1,
+                                autoActions.armToCollect(),
+                                autoActions.clawIn()
+                        )
 
-                    ),
-                    new ParallelAction(
-                            scorePreLoad,
-                            autoActions.elevatorUp()
-                    ),
-                    new ParallelAction(
-                            autoActions.elevatorDown(),
-                            autoActions.armDown()
-                    )
 
-            )
+
+                )
 
         );
         telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());

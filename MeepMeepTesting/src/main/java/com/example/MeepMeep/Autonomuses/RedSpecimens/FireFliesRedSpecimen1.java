@@ -10,7 +10,7 @@ public class FireFliesRedSpecimen1 {
 
         RoadRunnerBotEntity botRedSpecimen = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13.4).build();
 
-        botRedSpecimen.setDimensions(17, 17);
+        botRedSpecimen.setDimensions(17.75, 17);
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getStart())

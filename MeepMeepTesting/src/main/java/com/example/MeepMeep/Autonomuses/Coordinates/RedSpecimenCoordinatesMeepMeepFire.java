@@ -7,6 +7,7 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double startPoseHeading = Math.toRadians(180);
     private static final double intakePoseHeading = Math.toRadians(270);
 
+    private static final double scorePoseHeading = Math.toRadians(90);
 
     private static final double startX = 8;
     private static final double startY = -63;
@@ -27,16 +28,18 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double startScoreX = 0;
     private static final double startScoreY = -50;
 
+    private static final double pushSpecimensStartX = 30;
+    private static final double pushSpecimensStartY = -20;
 
 
-    private static final double pushspecimenY = -8;
-    private static final double pushspecimen1X = 42;
+    private static final double pushspecimenY = -10;
+    private static final double pushspecimen1X = 35;
     private static final double pushspecimen2X = 55;
-    private static final double pushspecimen3X = 70
-            ;
+    private static final double pushspecimen3X = 70;
 
     private static final double ObservationZoneY = -50;
     private static final double ObservationZoneX = 47;
+    private static final Pose2d specimentpushStart = new Pose2d(pushSpecimensStartX, scoreY, scorePoseHeading);
     private static final Pose2d specimentpush1 = new Pose2d(pushspecimen1X, pushspecimenY, startPoseHeading);
     private static final Pose2d specimentpush2 = new Pose2d(pushspecimen2X, pushspecimenY, startPoseHeading);
     private static final Pose2d specimentpush3 = new Pose2d(pushspecimen3X, pushspecimenY, startPoseHeading);
@@ -50,7 +53,6 @@ public class RedSpecimenCoordinatesMeepMeepFire {
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
 
-    private static final double scorePoseHeading = Math.toRadians(90);
     private static final Pose2d startScore = new Pose2d(startX, startScoreY, scorePoseHeading);
 
 
@@ -79,7 +81,9 @@ public class RedSpecimenCoordinatesMeepMeepFire {
 
 
     private static final Pose2d park = new Pose2d(parkX, wallEndY, startPoseHeading);
-
+    public static Pose2d getSpecimentpushStart(){
+        return specimentpushStart;
+    }
 
     public static Pose2d getStart() {
         return start;

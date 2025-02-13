@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
 
 public class Elevator {
-    public static int ARM_MAX_LIMIT = -2690;
+    public static int ARM_MAX_LIMIT = -2710;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
     final public static int ARM_MAX_SCORE = -1250;

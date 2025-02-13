@@ -22,6 +22,7 @@ public class FireFliesRedSpecimen2 {
 //                .setTangent(Math.toRadians(-45))
 //                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
                 //תפרוק
+                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getStartScore().position)
                         .strafeToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().position, RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
                         .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position)
                         .setTangent(Math.toRadians(115))

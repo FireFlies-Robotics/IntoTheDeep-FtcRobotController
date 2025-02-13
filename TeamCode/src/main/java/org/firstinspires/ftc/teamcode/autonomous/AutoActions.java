@@ -42,7 +42,7 @@ public class AutoActions{
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 414) {
+            if (pos < 470) {
                 return true;
             } else {
                 elevator.elevatorExtend.setPower(0);
@@ -93,15 +93,15 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorLeftArm.setPower(-1);
-                elevator.elevatorRightArm.setPower(-1);
+                elevator.elevatorLeftArm.setPower(-0.7);
+                elevator.elevatorRightArm.setPower(-0.7);
                 initialized = true;
 
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1500) {
+            if (pos > -1470) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -111,9 +111,6 @@ public class AutoActions{
         }
     }
 
-    public Action armUp() {
-        return new ArmUp();
-    }
 
     public class ArmDown implements Action {
         private boolean initialized = false;
@@ -121,8 +118,8 @@ public class AutoActions{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                elevator.elevatorLeftArm.setPower(-0.8);
-                elevator.elevatorRightArm.setPower(-0.8);
+                elevator.elevatorLeftArm.setPower(0.8);
+                elevator.elevatorRightArm.setPower(0.8);
                 initialized = true;
             }
 
@@ -148,6 +145,35 @@ public class AutoActions{
             return false;
         }
     }
+
+    public Action armUp() {
+        return new ArmUp();
+    }
+
+    public class ArmToCollect implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevator.elevatorLeftArm.setPower(-0.8);
+                elevator.elevatorRightArm.setPower(-0.8);
+                initialized = true;
+            }
+
+            double pos = elevator.elevatorRightArm.getCurrentPosition();
+            packet.put("armPos", pos);
+            if (pos > -2680) {
+                return true;
+            } else {
+                elevator.elevatorLeftArm.setPower(0);
+                elevator.elevatorRightArm.setPower(0);
+                return false;
+            }
+        }
+    }
+    public Action armToCollect(){return new ArmToCollect();}
+
     public Action clowOut() {
         return new ClawOut();
     }
