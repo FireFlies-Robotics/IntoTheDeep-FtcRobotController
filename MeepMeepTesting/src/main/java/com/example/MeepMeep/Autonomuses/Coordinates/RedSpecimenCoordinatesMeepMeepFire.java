@@ -45,7 +45,7 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final Pose2d specimentpush3 = new Pose2d(pushspecimen3X, pushspecimenY, startPoseHeading);
     private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
 
-    private static final double wallStartY = -50;
+    private static final double wallStartY = -45;
     private static final double wallEndY = -60;
 
     private static final double intakeX = 47;

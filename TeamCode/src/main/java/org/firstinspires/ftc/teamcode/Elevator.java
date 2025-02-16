@@ -21,7 +21,7 @@ public class Elevator {
 
     final public static int ARM_MAX_COLLECT= -2300;
 
-    final public static int ELEVATOR_MAX_COLLECT = 2100;
+    final public static int ELEVATOR_MAX_COLLECT = 1660;
     final public static int ELEVATOR_MAX_LIMIT = 3300;
 
     public  DcMotor elevatorExtend;
@@ -180,8 +180,8 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void collect(){
-        elevatorLeftArm.setTargetPosition(-2440);
-        elevatorRightArm.setTargetPosition(-2440);
+        elevatorLeftArm.setTargetPosition(-2360);
+        elevatorRightArm.setTargetPosition(-2360);
         elevatorLeftArm.setPower(1);
         elevatorRightArm.setPower(1);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);

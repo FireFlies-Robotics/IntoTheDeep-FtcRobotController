@@ -12,6 +12,7 @@ public class Intake {
 
     public CRServo leftIntake;
     public CRServo rightIntake;
+    public Servo pushSerevo;
 
 
     private CRServo intakeServo;
@@ -35,6 +36,10 @@ public class Intake {
         leftIntake = opMode.hardwareMap.get(CRServo.class, "left");
         rightIntake = opMode.hardwareMap.get(CRServo.class, "right");
         rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    }
+    public void pushSamples(double pos){
+        pushSerevo.setPosition(pos);
 
     }
     public void intakeUp(){

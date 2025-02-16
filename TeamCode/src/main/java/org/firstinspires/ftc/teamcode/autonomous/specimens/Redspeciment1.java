@@ -75,18 +75,16 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
             new SequentialAction(
                     new ParallelAction(
                             autoActions.armUp(),
-                            goToScore
-//                            autoActions.armUp()
+                            goToScore,
+                            autoActions.armUp()
 
                     ),
+                    autoActions.elevatorUp(),
+                    scorePreLoad,
                     new ParallelAction(
-                            scorePreLoad,
-                            autoActions.elevatorUp()
+                            autoActions.elevatorDown()
                     ),
-                    new ParallelAction(
-                            autoActions.elevatorDown(),
-                            autoActions.armDown()
-                    )
+                    autoActions.armDown()
 
             )
 

@@ -66,7 +66,8 @@ public class RedSpecimen2 extends LinearOpMode {
         Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position,con)
                 .build();
-        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
+
+        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
                 .strafeToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart().position, RedSpecimenCoordinatesFire.getIntakeStart().heading)
                 .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
                         .build();
@@ -83,20 +84,20 @@ public class RedSpecimen2 extends LinearOpMode {
                         new ParallelAction(
                                 autoActions.armUp(),
                                 goToScore
+//                        autoActions.armUp()
                         ),
+                        autoActions.elevatorUp(),
+                        scorePreLoad,
                         new ParallelAction(
-                                scorePreLoad,
-                                autoActions.elevatorUp()
+                                autoActions.elevatorDown()
                         ),
-                        new ParallelAction(
-                                autoActions.elevatorDown(),
-                                autoActions.armDown()),
                         backOff,
+                        autoActions.armToCollect(),
                         new ParallelAction(
                                 collect1,
-                                autoActions.armToCollect(),
                                 autoActions.clawIn()
-                        )
+                        ),
+                        autoActions.armDown()
 
 
 
