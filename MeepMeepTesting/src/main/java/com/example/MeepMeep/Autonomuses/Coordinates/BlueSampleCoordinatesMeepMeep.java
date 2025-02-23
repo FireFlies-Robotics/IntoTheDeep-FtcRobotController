@@ -5,11 +5,13 @@ import com.acmerobotics.roadrunner.Pose2d;
 public class BlueSampleCoordinatesMeepMeep {
     private static final double startX = 38.8;
     private static final double startY = 63.75;
-    private static final double scoreX = 52;
-    private static final double scoreY = 52;
-    private static final double intake2X = 40;
-    private static final double StartIntake2Y = 35;
+    private static final double scoreX = 56;
+    private static final double endScoreX = 53;
+    private static final double scoreY = 56;
+    private static final double endScoreY = 53;
 
+    private static final double intake2X = 47;
+    private static final double StartIntake2Y = 47;
     private static final double EndIntake2Y = 31;
     private static final double EndIntake2X = 45;
 
@@ -20,7 +22,7 @@ public class BlueSampleCoordinatesMeepMeep {
     private static final double parkY = 10;
     private static final double startPoseHeading = Math.toRadians(0);
     private static final double scorePoseHeading = Math.toRadians(45);
-    private static final double intake2PoseHeading = Math.toRadians(315);
+    private static final double intake2PoseHeading = Math.toRadians(270);
     private static final double parkPoseHeading = Math.toRadians(0);
     private static final double scoreTangent = Math.toRadians(270);
     private static final double intake4PoseHeading = Math.toRadians(315);
@@ -28,6 +30,9 @@ public class BlueSampleCoordinatesMeepMeep {
     private static final double intake4HeadingChange = Math.toRadians(90);
     private static final Pose2d start = new Pose2d(startX, startY, startPoseHeading);
     private static final Pose2d score = new Pose2d(scoreX, scoreY, scorePoseHeading);
+
+    private static final Pose2d endScore = new Pose2d(endScoreX, endScoreY, scorePoseHeading);
+
     private static final Pose2d intake2Start = new Pose2d(intake2X, StartIntake2Y, intake2PoseHeading);
     private static final Pose2d intake2End = new Pose2d(EndIntake2X, EndIntake2Y, intake2PoseHeading);
 
@@ -42,6 +47,7 @@ public class BlueSampleCoordinatesMeepMeep {
     public static Pose2d getScore() {
         return score;
     }
+    public static Pose2d getEndScore(){return endScore;}
 
     public static Pose2d getIntake2Start() {
         return intake2Start;
@@ -73,4 +79,5 @@ public class BlueSampleCoordinatesMeepMeep {
     public static double getIntake4HeadingChange() {
         return intake4HeadingChange;
     }
+
 }

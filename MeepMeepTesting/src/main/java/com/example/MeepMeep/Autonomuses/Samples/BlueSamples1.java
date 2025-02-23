@@ -13,12 +13,13 @@ public class BlueSamples1 {
 
         robot.runAction(robot.getDrive().actionBuilder(BlueSampleCoordinatesMeepMeep.getStart())
                 .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
+                        .waitSeconds(1)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
-
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
-                .strafeToConstantHeading(BlueSampleCoordinatesMeepMeep.getIntake2End().position)
-                .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
+                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getEndScore().position, BlueSampleCoordinatesMeepMeep.getEndScore().heading)
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
+//
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+//              .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 //
 //                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 //

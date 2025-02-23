@@ -10,12 +10,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
 
-public class AutoActions{
+public class AutoActionsSample {
     private Servo pushServo;
     Elevator elevator;
     Intake intake;
 
-    public AutoActions(Elevator elevator, Intake intake) {
+    public AutoActionsSample(Elevator elevator, Intake intake) {
         this.elevator = elevator;
         this.intake = intake;
     }
@@ -34,7 +34,6 @@ public class AutoActions{
                 elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorExtend.setPower(1);
-
                 double power = elevator.elevatorExtend.getPower();
                 packet.put("elevator power", power);
 
@@ -43,11 +42,13 @@ public class AutoActions{
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 700) {
+            if (pos < 2650) {
                 return true;
             } else {
-
-                elevator.elevatorExtend.setPower(0);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorExtend.setTargetPosition(2650);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorExtend.setPower(1);
                 return false;
             }
         }
@@ -100,23 +101,23 @@ public class AutoActions{
 
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(-0.7);
-                elevator.elevatorRightArm.setPower(-0.7);
+                elevator.elevatorLeftArm.setPower(-0.6);
+                elevator.elevatorRightArm.setPower(-0.6);
                 initialized = true;
 
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1480) {
+            if (pos > -1365) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorLeftArm.setTargetPosition(-1480);
-                elevator.elevatorRightArm.setTargetPosition(-1480);
-                elevator.elevatorLeftArm.setPower(0);
-                elevator.elevatorRightArm.setPower(0);
+                elevator.elevatorLeftArm.setTargetPosition(-1365);
+                elevator.elevatorRightArm.setTargetPosition(-1365);
+                elevator.elevatorLeftArm.setPower(-0.7);
+                elevator.elevatorRightArm.setPower(-0.7);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 return false;
@@ -184,7 +185,7 @@ public class AutoActions{
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -2550) {
+            if (pos > -2640) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -212,6 +213,76 @@ public class AutoActions{
     public Action clawIn() {
         return new ClawIn();
     }
+
+    public class ElevatorToCollect implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorExtend.setPower(0.5);
+                double power = elevator.elevatorExtend.getPower();
+                packet.put("elevator power", power);
+
+                initialized = true;
+            }
+
+            double pos = elevator.elevatorExtend.getCurrentPosition();
+            packet.put("elevator pos", pos);
+            if (pos < 820) {
+                return true;
+            } else {
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorExtend.setTargetPosition(770);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorExtend.setPower(1);
+                return false;
+            }
+        }
+    }
+    public Action elevatorToCollect() {
+        return new ElevatorToCollect();
+    }
+
+
+    public class ArmUpFromCollect implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorLeftArm.setPower(0.6);
+                elevator.elevatorRightArm.setPower(0.6);
+                initialized = true;
+
+            }
+
+            double pos = elevator.elevatorRightArm.getCurrentPosition();
+            packet.put("armPos", pos);
+            if (pos > -1365) {
+                return true;
+            } else {
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorLeftArm.setTargetPosition(-1365);
+                elevator.elevatorRightArm.setTargetPosition(-1365);
+                elevator.elevatorLeftArm.setPower(0.7);
+                elevator.elevatorRightArm.setPower(0.7);
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                return false;
+            }
+        }
+    }
+    public Action armUpFromCollect(){return new ArmUpFromCollect();}
+
 }
 //    public class PushSumples implements Action{
 //

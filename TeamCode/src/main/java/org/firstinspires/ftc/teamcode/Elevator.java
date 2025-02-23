@@ -1,32 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
 
 public class Elevator {
     public static int ARM_MAX_LIMIT = -2710;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
 
-    final public static int ARM_MAX_SCORE = -1250;
+    final public static int ARM_MAX_SCORE = -1100;
             ;
 
-    final public static int ARM_MAX_COLLECT= -2300;
+    final public static int ARM_MAX_COLLECT= -1600;
 
     final public static int ELEVATOR_MAX_COLLECT = 1660;
     final public static int ELEVATOR_MAX_LIMIT = 3300;
 
     public  DcMotor elevatorExtend;
-    public DcMotor elevatorLeftArm;
-    public DcMotor elevatorRightArm;
+    public DcMotorEx elevatorLeftArm;
+    public DcMotorEx elevatorRightArm;
 
 
     private OpMode opMode;
@@ -37,8 +30,8 @@ public class Elevator {
 
     public void initElevator(){
         elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
-        elevatorRightArm = opMode.hardwareMap.get(DcMotor.class, "elevatorRightArm");
-        elevatorLeftArm = opMode.hardwareMap.get(DcMotor.class, "elevatorLeftArm");
+        elevatorRightArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorRightArm");
+        elevatorLeftArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorLeftArm");
         elevatorLeftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -113,6 +106,7 @@ public class Elevator {
             elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             elevatorExtend.setPower(Math.min(extension, -0.3));
         }
+
         else {
             opMode.telemetry.addLine("6");
             elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -121,6 +115,9 @@ public class Elevator {
     }
     // this function use value (like the gamepad stick) to give the rotation motor power.
     public void rotateForwards(){
+//        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         if (elevatorRightArm.getTargetPosition() >= ARM_MAX_LIMIT) {
 
             elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() - 25);
@@ -148,6 +145,10 @@ public class Elevator {
 
 
     public void rotateBackwords(){
+
+//        elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         if (elevatorRightArm.getTargetPosition() < ARM_MIN_LIMIT ) {
 
             elevatorLeftArm.setTargetPosition(elevatorLeftArm.getTargetPosition() + 40);
@@ -171,8 +172,8 @@ public class Elevator {
 
     }
     public void score(){
-        elevatorLeftArm.setTargetPosition(-1260); //todo change to real scoring poison if servo ita -860
-        elevatorRightArm.setTargetPosition(-1260);
+        elevatorLeftArm.setTargetPosition(-1130); //todo change to real scoring poison if servo ita -860
+        elevatorRightArm.setTargetPosition(-1130);
         elevatorLeftArm.setPower(1);
         elevatorRightArm.setPower(1);
 
@@ -194,5 +195,14 @@ public class Elevator {
         elevatorRightArm.setPower(1);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//    }
+//    public void reset(boolean isReset){
+//        if (isReset){
+//            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            elevatorLeftArm.setPower(1);
+//            elevatorRightArm.setPower(1);}
+//        return;
     }
 }

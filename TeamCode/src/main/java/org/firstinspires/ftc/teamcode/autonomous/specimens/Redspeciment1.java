@@ -10,20 +10,19 @@ import com.acmerobotics.roadrunner.MinVelConstraint;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2dDual;
 import com.acmerobotics.roadrunner.PosePath;
-import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.VelConstraint;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Wheels;
-import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
+import org.firstinspires.ftc.teamcode.autonomous.AutoActionsSample;
+import org.firstinspires.ftc.teamcode.autonomous.AutoActionsSpecimen;
 import org.firstinspires.ftc.teamcode.autonomous.coordinates.RedSpecimenCoordinatesFire;
 
 import java.util.Arrays;
@@ -33,14 +32,14 @@ import java.util.Arrays;
 
 public class Redspeciment1 extends LinearOpMode {
     Wheels wheels;
-    AutoActions autoActions;
+    AutoActionsSpecimen autoActions;
 
     @Override
     public void runOpMode() throws InterruptedException {
 //            Wheels wheels = new Wheels(this);
         Elevator elevator = new Elevator(this);
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
-        autoActions = new AutoActions(elevator, intake);  // Pass required dependencies
+        autoActions = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
 MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
 
@@ -49,11 +48,11 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
         Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .setTangent(Math.toRadians(90)).setTangent(Math.toRadians(90))
-                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading, velCon)
                 .build();
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
-                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading)
+                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading, velCon)
 
                 .build();
         VelConstraint con = new VelConstraint() {
@@ -66,6 +65,12 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
                 .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position,con)
                 .build();
 
+        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+                .strafeToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart().position, RedSpecimenCoordinatesFire.getIntakeStart().heading)
+                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
+                .turn(Math.toRadians(180))
+                .build();
+
     waitForStart();
 
         if (isStopRequested()) return;
@@ -74,18 +79,14 @@ MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVe
         Actions.runBlocking(
             new SequentialAction(
                     new ParallelAction(
-                            autoActions.armUp(),
                             goToScore,
                             autoActions.armUp()
-
                     ),
                     autoActions.elevatorUp(),
                     scorePreLoad,
-                    new ParallelAction(
-                            autoActions.elevatorDown()
-                    ),
-                    autoActions.armDown()
-
+                    autoActions.elevatorDown(),
+                    autoActions.armDown(),
+                    collect1
             )
 
         );

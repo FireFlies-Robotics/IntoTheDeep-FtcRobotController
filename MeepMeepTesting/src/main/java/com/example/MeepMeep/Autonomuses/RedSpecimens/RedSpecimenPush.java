@@ -21,7 +21,7 @@ public class RedSpecimenPush {
 
 
         botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getScore1())
-                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getSpecimentpushStart().position)
+//                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getSpecimentpushStart().position)
 
                 .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getspecimentpush1().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
                         .setTangent(0)

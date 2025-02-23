@@ -21,7 +21,8 @@ import org.firstinspires.ftc.teamcode.Elevator;
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Wheels;
-import org.firstinspires.ftc.teamcode.autonomous.AutoActions;
+import org.firstinspires.ftc.teamcode.autonomous.AutoActionsSample;
+import org.firstinspires.ftc.teamcode.autonomous.AutoActionsSpecimen;
 import org.firstinspires.ftc.teamcode.autonomous.coordinates.RedSpecimenCoordinatesFire;
 
 import java.util.Arrays;
@@ -31,14 +32,16 @@ import java.util.Arrays;
 
 public class RedSpecimen2 extends LinearOpMode {
     Wheels wheels;
-    AutoActions autoActions;
+    AutoActionsSpecimen autoActions;
+    AutoActionsSample autoActionsSample;
 
     @Override
     public void runOpMode() throws InterruptedException {
 //            Wheels wheels = new Wheels(this);
         Elevator elevator = new Elevator(this);
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
-        autoActions = new AutoActions(elevator, intake);  // Pass required dependencies
+        autoActionsSample = new AutoActionsSample(elevator, intake);
+        autoActions = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
         MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
 
@@ -51,10 +54,19 @@ public class RedSpecimen2 extends LinearOpMode {
                 .build();
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
-                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading)
+                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore1().position, RedSpecimenCoordinatesFire.getScore1().heading, velCon)
+                .build();
+        Action score2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore2().position, RedSpecimenCoordinatesFire.getScore1().heading, velCon)
                 .build();
         Action backOff = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
                 .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
+                .build();
+        Action backOff2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
+                .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
+                .build();
+        Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position)
                 .build();
 
         VelConstraint con = new VelConstraint() {
@@ -63,15 +75,17 @@ public class RedSpecimen2 extends LinearOpMode {
                 return 20;
             }
         };
-        Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
-                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getPark().position,con)
-                .build();
+
 
         Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
-                .strafeToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart().position, RedSpecimenCoordinatesFire.getIntakeStart().heading)
-                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart(), RedSpecimenCoordinatesFire.getIntakeStart().heading)
+//                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
                         .build();
 
+        Action goToScore2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getIntakeStart())
+                .setTangent(Math.toRadians(115))
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getScore2(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .build();
 
 
         waitForStart();
@@ -92,15 +106,23 @@ public class RedSpecimen2 extends LinearOpMode {
                                 autoActions.elevatorDown()
                         ),
                         backOff,
-                        autoActions.armToCollect(),
+                        collect1,
+//                                autoActions.clawIn()
+                        autoActionsSample.armToCollect(),
+                        autoActions.clawIn() ,
                         new ParallelAction(
-                                collect1,
-                                autoActions.clawIn()
+                                autoActionsSample.elevatorToCollect()
                         ),
-                        autoActions.armDown()
-
-
-
+                        new ParallelAction(
+                                goToScore2,
+                                autoActions.armUp()
+                                ),
+                        autoActions.elevatorUp(),
+                        score2,
+                        autoActions.elevatorDown(),
+                        backOff2,
+                        autoActions.armDown(),
+                        park
                 )
 
         );
