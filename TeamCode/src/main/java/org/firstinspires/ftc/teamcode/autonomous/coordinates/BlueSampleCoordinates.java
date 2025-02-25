@@ -4,11 +4,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public class BlueSampleCoordinates {
     private static final double startX = 38.8;
-    private static final double startY = 63.75;
-    private static final double scoreX = 56.6;
-    private static final double endScoreX = 53;
-    private static final double scoreY = 56.6;
-    private static final double endScoreY = 53;
+    private static final double startY = 62;
+    private static final double scoreX = 56.3;
+    private static final double startScoreX = 56;
+    private static final double scoreY = 56.3;
+    private static final double startScoreY = 56;
 
     private static final double intake2X = 47;
     private static final double StartIntake2Y = 47;
@@ -20,8 +20,8 @@ public class BlueSampleCoordinates {
     private static final double intake4Y = 37;
     private static final double parkX = 26;
     private static final double parkY = 10;
-    private static final double startPoseHeading = Math.toRadians(0);
-    private static final double scorePoseHeading = Math.toRadians(45);
+    private static final double startPoseHeading = Math.toRadians(180);
+    private static final double scorePoseHeading = Math.toRadians(225);
     private static final double intake2PoseHeading = Math.toRadians(270);
     private static final double parkPoseHeading = Math.toRadians(0);
     private static final double scoreTangent = Math.toRadians(270);
@@ -31,7 +31,7 @@ public class BlueSampleCoordinates {
     private static final Pose2d start = new Pose2d(startX, startY, startPoseHeading);
     private static final Pose2d score = new Pose2d(scoreX, scoreY, scorePoseHeading);
 
-    private static final Pose2d endScore = new Pose2d(endScoreX, endScoreY, scorePoseHeading);
+    private static final Pose2d startScore = new Pose2d(startScoreX, startScoreY, scorePoseHeading);
 
     private static final Pose2d intake2Start = new Pose2d(intake2X, StartIntake2Y, intake2PoseHeading);
     private static final Pose2d intake2End = new Pose2d(EndIntake2X, EndIntake2Y, intake2PoseHeading);
@@ -47,7 +47,7 @@ public class BlueSampleCoordinates {
     public static Pose2d getScore() {
         return score;
     }
-    public static Pose2d getEndScore(){return endScore;}
+    public static Pose2d getStartScore(){return startScore;}
 
     public static Pose2d getIntake2Start() {
         return intake2Start;

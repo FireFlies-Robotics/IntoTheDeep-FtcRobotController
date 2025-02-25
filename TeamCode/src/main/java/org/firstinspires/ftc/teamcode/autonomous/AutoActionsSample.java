@@ -42,7 +42,7 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 2650) {
+            if (pos < 2635) {
                 return true;
             } else {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -75,8 +75,12 @@ public class AutoActionsSample {
             packet.put("elevator pos", pos);
             if (pos > 20) {
                 return true;
-            } else {
-                elevator.elevatorExtend.setPower(0);
+            }
+            else {
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorExtend.setTargetPosition(0);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorExtend.setPower(-1);
                 return false;
             }
         }
@@ -109,15 +113,15 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1365) {
+            if (pos > -1170) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorLeftArm.setTargetPosition(-1365);
-                elevator.elevatorRightArm.setTargetPosition(-1365);
-                elevator.elevatorLeftArm.setPower(-0.7);
-                elevator.elevatorRightArm.setPower(-0.7);
+                elevator.elevatorLeftArm.setTargetPosition(-1170);
+                elevator.elevatorRightArm.setTargetPosition(-1170);
+                elevator.elevatorLeftArm.setPower(-1);
+                elevator.elevatorRightArm.setPower(-1);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 return false;

@@ -6,18 +6,19 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class BlueSamples1 {
     public static void main(String[] args) {
-        com.noahbres.meepmeep.MeepMeep meepMeep = new com.noahbres.meepmeep.MeepMeep(600);
+        com.noahbres.meepmeep.MeepMeep meepMeep = new com.noahbres.meepmeep.MeepMeep(680);
 
         RoadRunnerBotEntity robot = new DefaultBotBuilder(meepMeep).setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 14).build();
         robot.setDimensions(17, 17);
 
         robot.runAction(robot.getDrive().actionBuilder(BlueSampleCoordinatesMeepMeep.getStart())
                 .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
-                        .waitSeconds(1)
+                .waitSeconds(1)
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
-                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getEndScore().position, BlueSampleCoordinatesMeepMeep.getEndScore().heading)
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
-//
+//                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getEndScore().position, BlueSampleCoordinatesMeepMeep.getEndScore().heading)
+//                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
+////
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
 //              .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 //

@@ -116,7 +116,7 @@ public class RedSpecimen2 extends LinearOpMode {
                         new ParallelAction(
                                 goToScore2,
                                 autoActions.armUp()
-                                ),
+                        ),
                         autoActions.elevatorUp(),
                         score2,
                         autoActions.elevatorDown(),
