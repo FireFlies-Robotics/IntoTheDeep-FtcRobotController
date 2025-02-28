@@ -20,9 +20,9 @@ import org.firstinspires.ftc.teamcode.autonomous.coordinates.BlueSampleCoordinat
 import java.util.Arrays;
 
 @Config
-@Autonomous (name = "sample1", group = "autonomus")
+@Autonomous (name = "sample2", group = "autonomus")
 
-public class Sample1 extends LinearOpMode {
+public class Sample2 extends LinearOpMode {
     Wheels wheels;
     AutoActionsSample autoActionsSample;
 
@@ -47,10 +47,29 @@ public class Sample1 extends LinearOpMode {
         Action backOff = drive.actionBuilder(BlueSampleCoordinates.getScore())
                 .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading)
                 .build();
+        Action backOff2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
+                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading)
+                .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                        .waitSeconds(1)
-                                .build();
+                .waitSeconds(1)
+                .build();
+        Action wait2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
+                .waitSeconds(1)
+                .build();
+        Action collect2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
+                .splineToLinearHeading(BlueSampleCoordinates.getIntake2Start(), BlueSampleCoordinates.getIntake2Start().heading)
+                .build();
+        Action goToScore2 = drive.actionBuilder(BlueSampleCoordinates.getIntake2Start())
+                .setTangent(BlueSampleCoordinates.getScoreTangent())
+                .splineToLinearHeading(BlueSampleCoordinates.getStartScore(), BlueSampleCoordinates.getScore().heading)
+                .waitSeconds(1)
+                .build();
+        Action score2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
+                .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
+                .build();
+
+
         waitForStart();
 
         if (isStopRequested()) return;
@@ -66,8 +85,24 @@ public class Sample1 extends LinearOpMode {
                         wait,
                         backOff,
                         autoActionsSample.elevatorDown(),
-                        autoActionsSample.armDown()
-                        )
+//                        autoActionsSample.armDown(),
+                        collect2,
+                        autoActionsSample.armToCollect(),
+                        autoActionsSample.clawIn(),
+                        autoActionsSample.elevatorToCollect(),
+                        autoActionsSample.elevatorDown(),
+                        autoActionsSample.armUpFromCollect(),
+                        goToScore2,
+                        autoActionsSample.elevatorUp(),
+                        score2,
+                        autoActionsSample.clawOut(),
+                        wait2,
+                        backOff2,
+                        autoActionsSample.elevatorDown(),
+                        autoActionsSample.armDown(),
+                        autoActionsSample.elevatorDown()
+
+                )
 
         );
         telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());

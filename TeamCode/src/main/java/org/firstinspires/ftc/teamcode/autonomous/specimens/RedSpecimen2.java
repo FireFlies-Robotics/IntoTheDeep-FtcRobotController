@@ -32,7 +32,7 @@ import java.util.Arrays;
 
 public class RedSpecimen2 extends LinearOpMode {
     Wheels wheels;
-    AutoActionsSpecimen autoActions;
+    AutoActionsSpecimen autoActionsSpecimen;
     AutoActionsSample autoActionsSample;
 
     @Override
@@ -41,7 +41,7 @@ public class RedSpecimen2 extends LinearOpMode {
         Elevator elevator = new Elevator(this);
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
         autoActionsSample = new AutoActionsSample(elevator, intake);
-        autoActions = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
+        autoActionsSpecimen = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
         MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
 
@@ -84,7 +84,7 @@ public class RedSpecimen2 extends LinearOpMode {
 
         Action goToScore2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getIntakeStart())
                 .setTangent(Math.toRadians(115))
-                .splineToLinearHeading(RedSpecimenCoordinatesFire.getScore2(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
                 .build();
 
 
@@ -96,32 +96,33 @@ public class RedSpecimen2 extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         new ParallelAction(
-                                autoActions.armUp(),
+                                autoActionsSpecimen.armUp(),
                                 goToScore
 //                        autoActions.armUp()
                         ),
-                        autoActions.elevatorUp(),
+                        autoActionsSpecimen.elevatorUp(),
                         scorePreLoad,
                         new ParallelAction(
-                                autoActions.elevatorDown()
+                                autoActionsSpecimen.elevatorDown()
                         ),
                         backOff,
                         collect1,
 //                                autoActions.clawIn()
                         autoActionsSample.armToCollect(),
-                        autoActions.clawIn() ,
+                        autoActionsSpecimen.clawIn() ,
                         new ParallelAction(
-                                autoActionsSample.elevatorToCollect()
+                                autoActionsSpecimen.elevatorToCollect()
                         ),
                         new ParallelAction(
+                                autoActionsSpecimen.clawStop(),
                                 goToScore2,
-                                autoActions.armUp()
+                                autoActionsSpecimen.armUp()
                         ),
-                        autoActions.elevatorUp(),
+                        autoActionsSpecimen.elevatorUp(),
                         score2,
-                        autoActions.elevatorDown(),
+                        autoActionsSpecimen.elevatorDown(),
                         backOff2,
-                        autoActions.armDown(),
+                        autoActionsSpecimen.armDown(),
                         park
                 )
 

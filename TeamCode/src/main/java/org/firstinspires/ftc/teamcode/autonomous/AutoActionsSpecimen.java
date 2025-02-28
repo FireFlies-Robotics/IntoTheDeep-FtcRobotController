@@ -216,7 +216,51 @@ public class AutoActionsSpecimen {
     public Action clawIn() {
         return new ClawIn();
     }
+    public class ClawStop implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            intake.leftIntake.setPower(0);
+            intake.rightIntake.setPower(0);
+            return false;
+        }
+    }
+    public Action clawStop() {
+        return new ClawStop();
+    }
+
+    public class ElevatorToCollect implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorExtend.setPower(0.5);
+                double power = elevator.elevatorExtend.getPower();
+                packet.put("elevator power", power);
+
+                initialized = true;
+            }
+
+            double pos = elevator.elevatorExtend.getCurrentPosition();
+            packet.put("elevator pos", pos);
+            if (pos < 950) {
+                return true;
+            } else {
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorExtend.setTargetPosition(950);
+                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorExtend.setPower(5);
+                return false;
+            }
+        }
+    }
+    public Action elevatorToCollect() {
+        return new ElevatorToCollect();
+    }
 }
+
 //    public class PushSumples implements Action{
 //
 //    }

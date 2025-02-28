@@ -42,11 +42,11 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 2635) {
+            if (pos < 2820) {
                 return true;
             } else {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorExtend.setTargetPosition(2650);
+                elevator.elevatorExtend.setTargetPosition(2800);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorExtend.setPower(1);
                 return false;
@@ -73,7 +73,7 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos > 20) {
+            if (pos > 10) {
                 return true;
             }
             else {
@@ -105,8 +105,8 @@ public class AutoActionsSample {
 
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(-0.6);
-                elevator.elevatorRightArm.setPower(-0.6);
+                elevator.elevatorLeftArm.setPower(-1);
+                elevator.elevatorRightArm.setPower(-1);
                 initialized = true;
 
             }
@@ -162,7 +162,7 @@ public class AutoActionsSample {
     public class ClawOut implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            intake.rotateIntakeWheels(-1);
+            intake.rotateIntakeWheels(-0.7);
             return false;
         }
     }
@@ -189,7 +189,7 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -2640) {
+            if (pos > -2480) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -201,7 +201,7 @@ public class AutoActionsSample {
     public Action armToCollect(){return new ArmToCollect();}
 
 
-    public Action clowOut() {
+    public Action clawOut() {
         return new ClawOut();
     }
 
@@ -226,7 +226,7 @@ public class AutoActionsSample {
             if (!initialized) {
                 elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.elevatorExtend.setPower(0.5);
+                elevator.elevatorExtend.setPower(0.7);
                 double power = elevator.elevatorExtend.getPower();
                 packet.put("elevator power", power);
 
@@ -235,13 +235,13 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 820) {
+            if (pos < 900) {
                 return true;
             } else {
-                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorExtend.setTargetPosition(770);
-                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                elevator.elevatorExtend.setPower(1);
+//                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                elevator.elevatorExtend.setTargetPosition(770);
+//                elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorExtend.setPower(0);
                 return false;
             }
         }
@@ -270,15 +270,15 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1365) {
+            if (pos > -1170) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorLeftArm.setTargetPosition(-1365);
-                elevator.elevatorRightArm.setTargetPosition(-1365);
-                elevator.elevatorLeftArm.setPower(0.7);
-                elevator.elevatorRightArm.setPower(0.7);
+                elevator.elevatorLeftArm.setTargetPosition(-1170);
+                elevator.elevatorRightArm.setTargetPosition(-1170);
+                elevator.elevatorLeftArm.setPower(1);
+                elevator.elevatorRightArm.setPower(1);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 return false;

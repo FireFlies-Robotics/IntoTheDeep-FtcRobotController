@@ -6,25 +6,24 @@ public class BlueSampleCoordinates {
     private static final double startX = 38.8;
     private static final double startY = 62;
     private static final double scoreX = 56.3;
-    private static final double startScoreX = 56;
+    private static final double startScoreX = 54;
     private static final double scoreY = 56.3;
-    private static final double startScoreY = 56;
-
-    private static final double intake2X = 47;
-    private static final double StartIntake2Y = 47;
-    private static final double EndIntake2Y = 31;
+    private static final double startScoreY = 54;
+    private static final double StartIntake2Y = 43;
+    private static final double intake2X = 48;
+    private static final double EndIntake2Y = 32;
     private static final double EndIntake2X = 45;
 
-    private static final double intake3X = 60;
+    private static final double intake3X = 58;
     private static final double intake4X = 57;
     private static final double intake4Y = 37;
     private static final double parkX = 26;
     private static final double parkY = 10;
     private static final double startPoseHeading = Math.toRadians(180);
     private static final double scorePoseHeading = Math.toRadians(225);
-    private static final double intake2PoseHeading = Math.toRadians(270);
+    private static final double intake2PoseHeading = Math.toRadians(-91);
     private static final double parkPoseHeading = Math.toRadians(0);
-    private static final double scoreTangent = Math.toRadians(270);
+    private static final double scoreTangent = Math.toRadians(-90);
     private static final double intake4PoseHeading = Math.toRadians(315);
     private static final double intake2HeadingChange = Math.toRadians(45);
     private static final double intake4HeadingChange = Math.toRadians(90);

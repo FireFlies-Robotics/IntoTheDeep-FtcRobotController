@@ -1,6 +1,8 @@
 package com.example.MeepMeep.Autonomuses.Samples;
 
+
 import com.example.MeepMeep.Autonomuses.Coordinates.BlueSampleCoordinatesMeepMeep;
+import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
@@ -16,12 +18,21 @@ public class BlueSamples1 {
                 .waitSeconds(1)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
-//                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getEndScore().position, BlueSampleCoordinatesMeepMeep.getEndScore().heading)
-//                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
-////
+
+                //score preload
+
+//                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getStartScore().position, BlueSampleCoordinatesMeepMeep.getScore().heading)
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake2Start(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
+                //collect second sample
+
+                .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+                .waitSeconds(1)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
-//              .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
-//
+                // score 2
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
+
+
 //                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
 //
 //                .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
@@ -39,7 +50,7 @@ public class BlueSamples1 {
                 .build());
 
 
-        meepMeep.setBackground(com.noahbres.meepmeep.MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(robot).start();
