@@ -42,11 +42,11 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 2820) {
+            if (pos < 2785) {
                 return true;
             } else {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorExtend.setTargetPosition(2800);
+                elevator.elevatorExtend.setTargetPosition(2785);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorExtend.setPower(1);
                 return false;

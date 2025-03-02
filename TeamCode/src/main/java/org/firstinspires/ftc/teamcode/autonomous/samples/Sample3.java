@@ -45,13 +45,13 @@ public class Sample3 extends LinearOpMode {
                 .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
                 .build();
         Action backOff = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading)
+                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading, velCon)
                 .build();
         Action backOff2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading)
+                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading, velCon)
                 .build();
         Action backOff3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading)
+                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading, velCon)
                 .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
