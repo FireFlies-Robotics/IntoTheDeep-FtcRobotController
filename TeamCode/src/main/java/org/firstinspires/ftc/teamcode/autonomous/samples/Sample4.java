@@ -109,7 +109,6 @@ public class Sample4 extends LinearOpMode {
                                 backOff,
                                 autoActionsSample.elevatorDown()
                         ),
-//                        autoActionsSample.armDown(),
                         new ParallelAction(
                                 collect2,
                                 autoActionsSample.armToCollect(),
@@ -117,12 +116,12 @@ public class Sample4 extends LinearOpMode {
                         ),
                         autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
+                        autoActionsSample.armUpFromCollect(),
+
                         new ParallelAction(
                                 goToScore2,
                                 autoActionsSample.elevatorUp()
-
                                 ),
-                        autoActionsSample.armUpFromCollect(),
                         score2,
                         autoActionsSample.clawOut(),
                         wait2,
@@ -130,7 +129,6 @@ public class Sample4 extends LinearOpMode {
                                 backOff2,
                                 autoActionsSample.elevatorDown()
                         ),
-                        autoActionsSample.elevatorDown(),
                         new ParallelAction(
                                 collect3,
                                 autoActionsSample.clawIn(),
@@ -138,11 +136,12 @@ public class Sample4 extends LinearOpMode {
                         ),
                         autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
+                        autoActionsSample.armUpFromCollect(),
+        
                         new ParallelAction(
                                 goToScore3,
                                 autoActionsSample.elevatorUp()
                                 ),
-                        autoActionsSample.armUpFromCollect(),
                         score3,
                         autoActionsSample.clawOut(),
                         wait3,
