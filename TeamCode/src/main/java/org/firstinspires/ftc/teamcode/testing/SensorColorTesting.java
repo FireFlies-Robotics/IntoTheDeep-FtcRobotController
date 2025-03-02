@@ -70,13 +70,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class SensorColorTesting extends LinearOpMode {
   private final float GAIN = 23;
   private final float RED_HUE_LOW = 30;
-  private final float RED_HUE_HIGH = 340;
+  private final float RED_HUE_HIGH = 330;
 
   private final float BLUE_HUE_LOW = 180;
   private final float BLUE_HUE_HIGH = 230;
 
   private final float YELLOW_HUE_LOW = 40;
   private final float YELLOW_HUE_HIGH = 70;
+
+  private final float MAX_HUE = 355;
+  private final float MIN_HUE = 0;
 
   /** The colorSensor field will contain a reference to our color sensor hardware object */
   NormalizedColorSensor colorSensor;
@@ -221,16 +224,19 @@ public class SensorColorTesting extends LinearOpMode {
       if (hsvValues[2] < 0.3) {
         telemetry.addLine("nothing");
       }
-      if (hsvValues[0] < RED_HUE_LOW || hsvValues[0] > RED_HUE_HIGH){
-        telemetry.addLine("rred");
+      if (hsvValues[0] > MIN_HUE && hsvValues[0] < RED_HUE_LOW || hsvValues[0] > RED_HUE_HIGH && hsvValues[0] < MAX_HUE){
+        telemetry.addLine("red");
+        gamepad1.rumble(1);
       }
 
-      if (hsvValues[0] < BLUE_HUE_LOW && hsvValues[0] > BLUE_HUE_HIGH){
+      if (hsvValues[0] > BLUE_HUE_LOW && hsvValues[0] < BLUE_HUE_HIGH){
         telemetry.addLine("blue");
+        gamepad1.rumble(100000);
       }
 
-      if (hsvValues[0] < YELLOW_HUE_HIGH && hsvValues[0] > YELLOW_HUE_LOW){
+      if (hsvValues[0] > YELLOW_HUE_LOW && hsvValues[0] < YELLOW_HUE_HIGH){
         telemetry.addLine("yellow");
+        gamepad2.rumble(1);
       }
 
       telemetry.update();
