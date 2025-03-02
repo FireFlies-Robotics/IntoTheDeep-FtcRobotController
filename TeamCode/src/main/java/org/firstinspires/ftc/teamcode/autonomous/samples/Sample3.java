@@ -55,13 +55,13 @@ public class Sample3 extends LinearOpMode {
                 .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(1.6)
                 .build();
         Action wait2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(1.6)
                 .build();
         Action wait3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(1.6)
                 .build();
         Action collect2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToLinearHeading(BlueSampleCoordinates.getIntake2Start(), BlueSampleCoordinates.getIntake2Start().heading)
