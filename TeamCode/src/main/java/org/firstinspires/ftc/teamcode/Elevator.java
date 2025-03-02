@@ -14,8 +14,13 @@ public class Elevator {
 
     final public static int ARM_MAX_COLLECT= -1600;
 
+    final public static int ARM_SPECIMEN_LIMIT= -940;
+
+
     final public static int ELEVATOR_MAX_COLLECT = 1660;
     final public static int ELEVATOR_MAX_LIMIT = 3300;
+    final public static int ELEVATOR_MAX_SPECIMEN = 620;
+
 
     public  DcMotor elevatorExtend;
     public DcMotorEx elevatorLeftArm;
@@ -69,8 +74,14 @@ public class Elevator {
     // this function use value (like the gamepad stick) to give the extension motor power.
     public void extend(double extension){
         boolean useExtend = extension>=0.3 || extension <= -0.3;
-        if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
+        if (elevatorRightArm.getCurrentPosition() > ARM_SPECIMEN_LIMIT){
              elevatorExtend.setPower(-1);
+        }
+
+        else if (useExtend
+                && elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE && elevatorRightArm.getCurrentPosition() < ARM_SPECIMEN_LIMIT
+                &&elevatorExtend.getCurrentPosition() > ELEVATOR_MAX_SPECIMEN){
+            elevatorExtend.setPower(Math.min(extension, 0));
         }
 //        if (elevatorRightArm.getCurrentPosition() > ARM_MAX_SCORE){
 //            opMode.telemetry.addLine("1");
@@ -189,8 +200,8 @@ public class Elevator {
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void scoreSpecimen(){
-        elevatorLeftArm.setTargetPosition(-1500);
-        elevatorRightArm.setTargetPosition(-1500);
+        elevatorLeftArm.setTargetPosition(-1540);
+        elevatorRightArm.setTargetPosition(-1540);
         elevatorLeftArm.setPower(1);
         elevatorRightArm.setPower(1);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
