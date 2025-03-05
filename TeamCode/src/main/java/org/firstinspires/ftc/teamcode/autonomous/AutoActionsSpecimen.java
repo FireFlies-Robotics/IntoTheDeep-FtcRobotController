@@ -104,8 +104,8 @@ public class AutoActionsSpecimen {
 
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(-0.7);
-                elevator.elevatorRightArm.setPower(-0.7);
+                elevator.elevatorLeftArm.setPower(-1);
+                elevator.elevatorRightArm.setPower(-1);
                 initialized = true;
 
             }
@@ -236,7 +236,7 @@ public class AutoActionsSpecimen {
             if (!initialized) {
                 elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.elevatorExtend.setPower(0.5);
+                elevator.elevatorExtend.setPower(0.7);
                 double power = elevator.elevatorExtend.getPower();
                 packet.put("elevator power", power);
 
@@ -251,7 +251,7 @@ public class AutoActionsSpecimen {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorExtend.setTargetPosition(950);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                elevator.elevatorExtend.setPower(5);
+                elevator.elevatorExtend.setPower(1);
                 return false;
             }
         }

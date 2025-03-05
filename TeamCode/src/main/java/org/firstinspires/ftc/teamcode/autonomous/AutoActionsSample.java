@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Intake;
 
 public class AutoActionsSample {
     private Servo pushServo;
+    OpMode opMode;
     Elevator elevator;
     Intake intake;
 
@@ -61,7 +63,6 @@ public class AutoActionsSample {
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
                 elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorExtend.setPower(-1);
 
@@ -73,7 +74,7 @@ public class AutoActionsSample {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos > 10) {
+            if (pos > 20) {
                 return true;
             }
             else {
@@ -100,6 +101,7 @@ public class AutoActionsSample {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
+
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -139,8 +141,8 @@ public class AutoActionsSample {
 
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.elevatorLeftArm.setPower(0.8);
-                elevator.elevatorRightArm.setPower(0.8);
+                elevator.elevatorLeftArm.setPower(0.7);
+                elevator.elevatorRightArm.setPower(0.7);
                 initialized = true;
             }
 
@@ -149,6 +151,9 @@ public class AutoActionsSample {
             if (pos < -20) {
                 return true;
             } else {
+
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorLeftArm.setPower(0);
                 elevator.elevatorRightArm.setPower(0);
                 return false;
@@ -182,14 +187,14 @@ public class AutoActionsSample {
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(-0.8);
-                elevator.elevatorRightArm.setPower(-0.8);
+                elevator.elevatorLeftArm.setPower(-1);
+                elevator.elevatorRightArm.setPower(-1);
                 initialized = true;
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -2480) {
+            if (pos > -2430) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setPower(0);
@@ -257,15 +262,15 @@ public class AutoActionsSample {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
+                packet.put("isArmFromCollectInitialized", initialized);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(0.6);
-                elevator.elevatorRightArm.setPower(0.6);
+                elevator.elevatorLeftArm.setPower(0.8);
+                elevator.elevatorRightArm.setPower(0.8);
                 initialized = true;
-
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
@@ -277,8 +282,8 @@ public class AutoActionsSample {
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorLeftArm.setTargetPosition(-1170);
                 elevator.elevatorRightArm.setTargetPosition(-1170);
-                elevator.elevatorLeftArm.setPower(1);
-                elevator.elevatorRightArm.setPower(1);
+                elevator.elevatorLeftArm.setPower(0.8);
+                elevator.elevatorRightArm.setPower(0.8);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 return false;

@@ -44,8 +44,6 @@ public class RedSpecimen2 extends LinearOpMode {
         autoActionsSpecimen = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
         MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
         elevator.initElevator();
-
-
         intake.initIntake();
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
         Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())

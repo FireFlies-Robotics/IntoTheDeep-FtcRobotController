@@ -56,13 +56,13 @@ public class Sample4 extends LinearOpMode {
                 .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(0.8)
                 .build();
         Action wait2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(0.8)
                 .build();
         Action wait3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(1)
+                .waitSeconds(0.8)
                 .build();
         Action collect2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToLinearHeading(BlueSampleCoordinates.getIntake2Start(), BlueSampleCoordinates.getIntake2Start().heading)
@@ -70,7 +70,13 @@ public class Sample4 extends LinearOpMode {
         Action goToScore2 = drive.actionBuilder(BlueSampleCoordinates.getIntake2Start())
                 .setTangent(BlueSampleCoordinates.getScoreTangent())
                 .splineToLinearHeading(BlueSampleCoordinates.getStartScore(), BlueSampleCoordinates.getScore().heading)
-                .waitSeconds(1)
+                .waitSeconds(0.8)
+                .build();
+
+        Action goToScore4 = drive.actionBuilder(BlueSampleCoordinates.getIntake3())
+                .setTangent(BlueSampleCoordinates.getScoreTangent())
+                .splineToLinearHeading(BlueSampleCoordinates.getStartScore(), BlueSampleCoordinates.getScore().heading)
+                .waitSeconds(0.8)
                 .build();
         Action score2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
@@ -79,6 +85,9 @@ public class Sample4 extends LinearOpMode {
                 .splineToLinearHeading(BlueSampleCoordinates.getIntake3(), BlueSampleCoordinates.getIntake2Start().heading)
                 .build();
 
+        Action collect4 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
+                .splineToLinearHeading(BlueSampleCoordinates.getIntake3(), BlueSampleCoordinates.getIntake2Start().heading)
+                .build();
         Action goToScore3 = drive.actionBuilder(BlueSampleCoordinates.getIntake2Start())
                 .setTangent(BlueSampleCoordinates.getScoreTangent())
                 .splineToLinearHeading(BlueSampleCoordinates.getStartScore(), BlueSampleCoordinates.getScore().heading)
@@ -86,6 +95,9 @@ public class Sample4 extends LinearOpMode {
                 .build();
         Action score3 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
+                .build();
+        Action collect4 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
+                .splineToLinearHeading(BlueSampleCoordinates.getIntake3(), BlueSampleCoordinates.getIntake3().heading)
                 .build();
 
         waitForStart();
@@ -97,60 +109,58 @@ public class Sample4 extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 goToScore1,
-                                autoActionsSample.armUp()
-                                ),
+                                autoActionsSample.armUp()),
                         new ParallelAction(
                                 autoActionsSample.elevatorUp(),
-                                score1
-                        ),
-                        autoActionsSample.clawOut(),
-                        wait,
+                                score1),
+                        new ParallelAction(
+                                autoActionsSample.clawOut(),
+                                wait),
                         new ParallelAction(
                                 backOff,
-                                autoActionsSample.elevatorDown()
-                        ),
+                                autoActionsSample.elevatorDown()),
+                        autoActionsSample.clawIn(),
                         new ParallelAction(
                                 collect2,
-                                autoActionsSample.armToCollect(),
-                                autoActionsSample.clawIn()
-                        ),
+                                autoActionsSample.armToCollect()
+                                ),
+
                         autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
-                        autoActionsSample.armUpFromCollect(),
-
                         new ParallelAction(
-                                goToScore2,
-                                autoActionsSample.elevatorUp()
-                                ),
-                        score2,
+                                autoActionsSample.armUpFromCollect(),
+                                goToScore2),
+                        new ParallelAction(
+                                autoActionsSample.elevatorUp(),
+                                score2),
                         autoActionsSample.clawOut(),
                         wait2,
                         new ParallelAction(
                                 backOff2,
-                                autoActionsSample.elevatorDown()
-                        ),
+                                autoActionsSample.elevatorDown()),
+                        autoActionsSample.clawIn(),
+
                         new ParallelAction(
                                 collect3,
-                                autoActionsSample.clawIn(),
                                 autoActionsSample.armToCollect()
-                        ),
+                                ),
                         autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
-                        autoActionsSample.armUpFromCollect(),
-        
                         new ParallelAction(
-                                goToScore3,
-                                autoActionsSample.elevatorUp()
-                                ),
-                        score3,
+                                autoActionsSample.armUpFromCollect(),
+                                goToScore3),
+                        new ParallelAction(
+                                autoActionsSample.elevatorUp(),
+                                score3),
                         autoActionsSample.clawOut(),
                         wait3,
                         new ParallelAction(
                                 backOff3,
-                                autoActionsSample.elevatorDown()
-                        ),
+                                autoActionsSample.elevatorDown()),
                         autoActionsSample.armDown(),
-                        autoActionsSample.elevatorDown()
+                        autoActionsSample.elevatorDown(),
+                        collect4,
+                        autoActionsSample.armToCollect(),
                 )
 
         );
