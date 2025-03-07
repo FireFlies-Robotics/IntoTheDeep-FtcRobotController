@@ -160,7 +160,7 @@ public class Sample4 extends LinearOpMode {
                         autoActionsSample.armDown(),
                         autoActionsSample.elevatorDown(),
                         collect4,
-                        autoActionsSample.armToCollect(),
+                        autoActionsSample.armToCollect()
                 )
 
         );

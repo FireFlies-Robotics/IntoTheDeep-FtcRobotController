@@ -22,7 +22,7 @@ public class BlueSampleCoordinatesMeepMeep {
     private static final double startPoseHeading = Math.toRadians(180);
     private static final double scorePoseHeading = Math.toRadians(225);
     private static final double intake2PoseHeading = Math.toRadians(-91);
-    private static final double intake3PoseHeading = Math.toRadians(315);
+    private static final double intake3PoseHeading = Math.toRadians(-90);
 
 
     private static final double parkPoseHeading = Math.toRadians(0);

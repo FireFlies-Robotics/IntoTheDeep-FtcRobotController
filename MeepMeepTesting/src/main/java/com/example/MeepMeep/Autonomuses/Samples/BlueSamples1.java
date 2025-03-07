@@ -28,11 +28,15 @@ public class BlueSamples1 {
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
                 // score 2
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake2Start().heading)
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
-                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+
                 .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake3().heading)
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake4(), BlueSampleCoordinatesMeepMeep.getIntake4().heading)
 //                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getIntake3(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
+                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getStartScore(), BlueSampleCoordinatesMeepMeep.getScore().heading)
+                .splineToConstantHeading(BlueSampleCoordinatesMeepMeep.getScore().position,BlueSampleCoordinatesMeepMeep.getScore().heading)
 //
 //                .setTangent(BlueSampleCoordinatesMeepMeep.getScoreTangent())
 //                .splineToLinearHeading(BlueSampleCoordinatesMeepMeep.getScore(), BlueSampleCoordinatesMeepMeep.getIntake2HeadingChange())
