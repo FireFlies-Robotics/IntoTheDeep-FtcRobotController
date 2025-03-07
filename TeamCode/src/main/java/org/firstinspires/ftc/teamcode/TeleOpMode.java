@@ -51,6 +51,9 @@ public class TeleOpMode extends LinearOpMode {
     Intake intake;
     IMU imu; // Declare class for getting robot angles
 
+    PushSystem pushSystem;
+    public static double pushPosition;
+
     @Override
     public void runOpMode() {
         imu = hardwareMap.get(IMU.class, "imu");
@@ -66,7 +69,9 @@ public class TeleOpMode extends LinearOpMode {
         elevator = new Elevator(this);
         wheels = new Wheels(this, imu);
         intake = new Intake(this);
+        pushSystem = new PushSystem(this);
 
+        pushSystem.initPushSystem();
         elevator.initElevator();
         intake.initIntake();
 
@@ -132,6 +137,11 @@ public class TeleOpMode extends LinearOpMode {
 
             else {
                 wheels.setMaxSpeed(1);
+            }
+            if (gamepad1.right_bumper){
+                pushSystem.push();
+            } else {
+                pushSystem.close();
             }
             telemetry.addData("elevator power", elevator.elevatorExtend.getPower());
 
