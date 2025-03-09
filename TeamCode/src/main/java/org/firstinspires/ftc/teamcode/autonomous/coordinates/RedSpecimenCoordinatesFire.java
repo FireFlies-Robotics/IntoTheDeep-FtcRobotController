@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public class RedSpecimenCoordinatesFire {
 
-    private static final double startPoseHeading = Math.toRadians(180);
+    private static final double startPoseHeading = Math.toRadians(-90);
     private static final double intakePoseHeading = Math.toRadians(270);
 
 
@@ -15,14 +15,14 @@ public class RedSpecimenCoordinatesFire {
     private static final double score3X = 2;
     private static final double score4X = 5;
     private static final double score5X = 8;
-    private static final double scoreY = -37;
+    private static final double scoreY = -38;
     private static final double midWayMoveSpecimensY = -40;
-    private static final double moveSpecimensStart0X = 36;
+    private static final double moveSpecimensStart0X = 32;
     private static final double moveSpecimensStartY = -13;
-    private static final double moveSpecimensEndY = -46;
-    private static final double specimen1X = 42;
+    private static final double moveSpecimensEndY = -50;
+    private static final double specimen1X = 43;
     private static final double specimen2X = 53;
-    private static final double specimen3X = 63;
+    private static final double specimen3X = 61.3;
 
     private static final double startScoreX = 0;
     private static final double startScoreY = -51;
@@ -47,7 +47,7 @@ public class RedSpecimenCoordinatesFire {
     private static final double intakeX = 47;
     private static final double parkX = 57;
 
-    private static final double midWayMoveSpecimensTangent = Math.toRadians(270);
+    private static final double midWayMoveSpecimensTangent = Math.toRadians(0);
 
     private static final double scorePoseHeading = Math.toRadians(90);
     private static final Pose2d startScore = new Pose2d(startX, startScoreY, scorePoseHeading);
