@@ -206,14 +206,14 @@ public class Elevator {
         elevatorRightArm.setPower(1);
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//    }
-//    public void reset(boolean isReset){
-//        if (isReset){
-//            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            elevatorLeftArm.setPower(1);
-//            elevatorRightArm.setPower(1);}
-//        return;
+    }
+    public void reset(){
+            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            elevatorExtend.setPower(-1);
+            elevatorLeftArm.setPower(0.7);
+            elevatorRightArm.setPower(0.7);
+
     }
 }
