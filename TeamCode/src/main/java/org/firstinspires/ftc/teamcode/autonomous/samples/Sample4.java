@@ -54,6 +54,9 @@ public class Sample4 extends LinearOpMode {
         Action backOff3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
                 .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading, velCon)
                 .build();
+        Action backOff4 = drive.actionBuilder(BlueSampleCoordinates.getScore())
+                .splineToConstantHeading(BlueSampleCoordinates.getStartScore().position, BlueSampleCoordinates.getScore().heading, velCon)
+                .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
                 .waitSeconds(0.8)
@@ -62,6 +65,10 @@ public class Sample4 extends LinearOpMode {
                 .waitSeconds(0.8)
                 .build();
         Action wait3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
+                .waitSeconds(0.8)
+                .build();
+
+        Action wait4 = drive.actionBuilder(BlueSampleCoordinates.getScore())
                 .waitSeconds(0.8)
                 .build();
         Action collect2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
@@ -73,12 +80,15 @@ public class Sample4 extends LinearOpMode {
                 .waitSeconds(0.8)
                 .build();
 
-        Action goToScore4 = drive.actionBuilder(BlueSampleCoordinates.getIntake3())
+        Action goToScore4 = drive.actionBuilder(BlueSampleCoordinates.getIntake4())
                 .setTangent(BlueSampleCoordinates.getScoreTangent())
                 .splineToLinearHeading(BlueSampleCoordinates.getStartScore(), BlueSampleCoordinates.getScore().heading)
                 .waitSeconds(0.8)
                 .build();
         Action score2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
+                .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
+                .build();
+        Action score4 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
                 .build();
 
@@ -96,6 +106,7 @@ public class Sample4 extends LinearOpMode {
         Action collect4 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToLinearHeading(BlueSampleCoordinates.getIntake4(), BlueSampleCoordinates.getIntake4().heading)
                 .build();
+
 
         waitForStart();
 
@@ -154,14 +165,26 @@ public class Sample4 extends LinearOpMode {
                         new ParallelAction(
                                 backOff3,
                                 autoActionsSample.elevatorDown()),
-                        autoActionsSample.armDown(),
+                        new ParallelAction(
+                                collect4,
+                                autoActionsSample.armToCollect()),
+                        autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
-                        collect4,
-                        autoActionsSample.armToCollect()
+                        new ParallelAction(
+                                autoActionsSample.armUpFromCollect(),
+                                goToScore4),
+                        new ParallelAction(
+                                autoActionsSample.elevatorUp(),
+                                score4),
+                        autoActionsSample.clawOut(),
+                        wait4,
+                        new ParallelAction(
+                                backOff4,
+                                autoActionsSample.elevatorDown()
+                        ),
+                        autoActionsSample.armDown()
                 )
-
         );
         telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());
-
     }
 }
