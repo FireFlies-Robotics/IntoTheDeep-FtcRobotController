@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Wheels;
 
 @TeleOp(name = "Field Oriented Wheels Test", group = "Test")
 //Uncomment the line below to disable this op
-//@Disabled
+@Disabled
 public class FieldOrientedWheelsTest extends LinearOpMode {
     // Declare variables you will be using throughout this class here
 
