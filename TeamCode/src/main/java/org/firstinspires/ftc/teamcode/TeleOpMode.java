@@ -29,13 +29,20 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
+import kotlin.Unit;
 
 @TeleOp(name="Main OpMode", group="Linear OpMode")
 @Config
@@ -44,7 +51,7 @@ public class TeleOpMode extends LinearOpMode {
 
 
     // Declare OpMode members.
-    private final ElapsedTime runtime = new ElapsedTime();
+//    private final ElapsedTime runtime = new ElapsedTime();
 
     Wheels wheels; // Declare the wheels class to control the wheels
     Elevator elevator;
@@ -56,6 +63,7 @@ public class TeleOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -77,11 +85,20 @@ public class TeleOpMode extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
 //        telemetry.update();
+//        FtcDashboard dashboard = FtcDashboard.getInstance();
+//        telemetry = dashboard.getTelemetry();
 
         waitForStart();
-        runtime.reset();
 
         while (opModeIsActive()) {
+            if (gamepad2.share){
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorExtend.setPower(-1);
+                elevator.elevatorLeftArm.setPower(1);
+                elevator.elevatorRightArm.setPower(1);
+            }
+            else{
             if (gamepad1.options) {
                 imu.resetYaw();
             }
@@ -91,15 +108,17 @@ public class TeleOpMode extends LinearOpMode {
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             telemetry.addData("arm position", elevator.elevatorLeftArm.getCurrentPosition());
-            if (gamepad2.dpad_up && elevator.elevatorExtend.getCurrentPosition() <= 1000
-            ) {
+            if (gamepad2.dpad_up && elevator.elevatorExtend.getCurrentPosition() <= 1000) {
                 elevator.rotateForwards();
             }
             else if (gamepad2.dpad_down && elevator.elevatorExtend.getCurrentPosition() <= 1000
              ) {
                 elevator.rotateBackwords();
             }
-            elevator.extend(-gamepad2.left_stick_y);
+
+
+            else {elevator.extend(-gamepad2.left_stick_y);}
+
 
             if (gamepad2.circle){
                 intake.rotateIntakeWheels(1);
@@ -138,22 +157,16 @@ public class TeleOpMode extends LinearOpMode {
             else {
                 wheels.setMaxSpeed(1);
             }
-            if (gamepad1.right_bumper){
-                pushSystem.push();
-            } else {
-                pushSystem.close();
-            }
             telemetry.addData("elevator power", elevator.elevatorExtend.getPower());
 
             telemetry.addData("elevator position", elevator.elevatorExtend.getCurrentPosition());
 
-            telemetry.addData(" right position", elevator.elevatorRightArm.getCurrentPosition());
-            telemetry.addData(" left position", elevator.elevatorLeftArm.getCurrentPosition());
+            telemetry.addData("arm position", elevator.elevatorRightArm.getCurrentPosition());
 
-            telemetry.addData("targetPosition left", elevator.elevatorLeftArm.getTargetPosition());
-            telemetry.addData("targetPosition right", elevator.elevatorRightArm.getTargetPosition());
-
+            telemetry.addData("right arm current", elevator.elevatorRightArm.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("left arm current", elevator.elevatorLeftArm.getCurrent(CurrentUnit.AMPS));
             telemetry.update();
+        }
         }
     }
 }

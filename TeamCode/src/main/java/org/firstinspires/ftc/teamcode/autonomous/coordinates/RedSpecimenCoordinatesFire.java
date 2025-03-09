@@ -15,7 +15,7 @@ public class RedSpecimenCoordinatesFire {
     private static final double score3X = 2;
     private static final double score4X = 5;
     private static final double score5X = 8;
-    private static final double scoreY = -40;
+    private static final double scoreY = -37;
     private static final double midWayMoveSpecimensY = -40;
     private static final double moveSpecimensStart0X = 36;
     private static final double moveSpecimensStartY = -13;
@@ -42,7 +42,7 @@ public class RedSpecimenCoordinatesFire {
     private static final Pose2d specimentpush3 = new Pose2d(pushspecimen3X, pushspecimenY, startPoseHeading);
     private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
 
-    private static final double wallStartY = -45;
+    private static final double wallStartY = -47;
     private static final double wallEndY = -60;
     private static final double intakeX = 47;
     private static final double parkX = 57;
