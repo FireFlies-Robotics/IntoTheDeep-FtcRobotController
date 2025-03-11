@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public class RedSpecimenCoordinatesFire {
 
-    private static final double startPoseHeading = Math.toRadians(180);
+    private static final double startPoseHeading = Math.toRadians(90);
     private static final double intakePoseHeading = Math.toRadians(270);
 
 
@@ -43,7 +43,7 @@ public class RedSpecimenCoordinatesFire {
     private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
 
     private static final double wallStartY = -47;
-    private static final double wallEndY = -60;
+    private static final double wallEndY = -64;
     private static final double intakeX = 47;
     private static final double parkX = 57;
 
