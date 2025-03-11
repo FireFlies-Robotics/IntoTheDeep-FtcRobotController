@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public class RedSpecimenCoordinatesFire {
 
-    private static final double startPoseHeading = Math.toRadians(-90);
+    private static final double startPoseHeading = Math.toRadians(180);
     private static final double intakePoseHeading = Math.toRadians(270);
 
 
