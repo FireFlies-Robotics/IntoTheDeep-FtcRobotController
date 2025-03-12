@@ -32,7 +32,7 @@ public class Sample4 extends LinearOpMode {
         Elevator elevator = new Elevator(this);
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
         autoActionsSample = new AutoActionsSample(elevator, intake);  // Pass required dependencies
-        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
+        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(26),new AngularVelConstraint(10)));
         elevator.initElevator();
 
 
@@ -59,17 +59,17 @@ public class Sample4 extends LinearOpMode {
                 .build();
 
         Action wait = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(0.8)
+                .waitSeconds(0.75)
                 .build();
         Action wait2 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(0.8)
+                .waitSeconds(0.75)
                 .build();
         Action wait3 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(0.8)
+                .waitSeconds(0.75)
                 .build();
 
         Action wait4 = drive.actionBuilder(BlueSampleCoordinates.getScore())
-                .waitSeconds(0.8)
+                .waitSeconds(0.75)
                 .build();
         Action collect2 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
                 .splineToLinearHeading(BlueSampleCoordinates.getIntake2Start(), BlueSampleCoordinates.getIntake2Start().heading)
@@ -104,7 +104,7 @@ public class Sample4 extends LinearOpMode {
                 .splineToConstantHeading(BlueSampleCoordinates.getScore().position, BlueSampleCoordinates.getScore().heading)
                 .build();
         Action collect4 = drive.actionBuilder(BlueSampleCoordinates.getStartScore())
-                .splineToLinearHeading(BlueSampleCoordinates.getIntake4(), BlueSampleCoordinates.getIntake4().heading)
+                .splineToLinearHeading(BlueSampleCoordinates.getIntake4(), BlueSampleCoordinates.getIntake4().heading, velCon)
                 .build();
 
 
@@ -167,6 +167,7 @@ public class Sample4 extends LinearOpMode {
                                 autoActionsSample.elevatorDown()),
                         new ParallelAction(
                                 collect4,
+                                autoActionsSample.clawIn(),
                                 autoActionsSample.armToCollect()),
                         autoActionsSample.elevatorToCollect(),
                         autoActionsSample.elevatorDown(),
