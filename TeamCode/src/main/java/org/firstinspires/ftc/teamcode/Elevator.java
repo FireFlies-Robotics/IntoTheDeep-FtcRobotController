@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Elevator {
     public static int ARM_MAX_LIMIT = -2710;
@@ -25,6 +28,8 @@ public class Elevator {
     public  DcMotor elevatorExtend;
     public DcMotorEx elevatorLeftArm;
     public DcMotorEx elevatorRightArm;
+    private DigitalChannel armSwitch;
+
 
 
     private OpMode opMode;
@@ -37,6 +42,8 @@ public class Elevator {
         elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
         elevatorRightArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorRightArm");
         elevatorLeftArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorLeftArm");
+//        armSwitch = hardwareMap.get(DigitalChannel.class, "arm_switch");
+
         elevatorLeftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -48,6 +55,7 @@ public class Elevator {
 
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        armSwitch.setMode(DigitalChannel.Mode.INPUT);
 
         elevatorRightArm.setTargetPosition(0);
         elevatorLeftArm.setTargetPosition(0);
@@ -214,6 +222,13 @@ public class Elevator {
             elevatorExtend.setPower(-1);
             elevatorLeftArm.setPower(0.7);
             elevatorRightArm.setPower(0.7);
-
+//    }
+//    public void armLimitCheck(){
+//        if (!armSwitch.getState()) { // Switch is pressed
+//             opMode.telemetry.addData("Limit Switch", "PRESSED");
+//        }
+//        else {
+//            opMode.telemetry.addData("Limit Switch", "NOT PRESSED");
+//        }
     }
 }

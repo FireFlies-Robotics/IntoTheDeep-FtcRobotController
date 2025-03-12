@@ -20,7 +20,7 @@ public class RedSpecimenPush {
 
 
 
-        botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getScore1())
+        botRedSpecimen.runAction(botRedSpecimen.getDrive().actionBuilder(RedSpecimenCoordinatesMeepMeepFire.getPark())
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getSpecimentpushStart().position)
 
                 .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getspecimentpush1().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
@@ -34,7 +34,7 @@ public class RedSpecimenPush {
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore4().component1())
 //
 //                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeStart().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
-//                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
+//                .splineToConstantHe ading(RedSpecimenCoordinatesMeepMeep.getIntakeEnd().position, RedSpecimenCoordinatesMeepMeep.getStart().heading)
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getScore5().component1())
 //
 //                .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeep.getPark().position)

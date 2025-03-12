@@ -42,13 +42,13 @@ public class RedSpecimen2 extends LinearOpMode {
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
         autoActionsSample = new AutoActionsSample(elevator, intake);
         autoActionsSpecimen = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
-        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(10)));
+        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(10),new AngularVelConstraint(7)));
         elevator.initElevator();
         intake.initIntake();
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
         Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .setTangent(Math.toRadians(90)).setTangent(Math.toRadians(90))
-                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading, velCon)
                 .build();
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
@@ -77,7 +77,6 @@ public class RedSpecimen2 extends LinearOpMode {
 
         Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
                 .splineToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart(), RedSpecimenCoordinatesFire.getIntakeStart().heading)
-//                .strafeToConstantHeading(RedSpecimenCoordinatesFire.getIntakeEnd().position)
                         .build();
 
         Action goToScore2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getIntakeStart())
@@ -100,12 +99,9 @@ public class RedSpecimen2 extends LinearOpMode {
                         ),
                         autoActionsSpecimen.elevatorUp(),
                         scorePreLoad,
-                        new ParallelAction(
-                                autoActionsSpecimen.elevatorDown()
-                        ),
+                        autoActionsSpecimen.elevatorDown(),
                         backOff,
                         collect1,
-//                                autoActions.clawIn()
                         autoActionsSample.armToCollect(),
                         autoActionsSpecimen.clawIn() ,
                         new ParallelAction(
@@ -114,7 +110,7 @@ public class RedSpecimen2 extends LinearOpMode {
                         new ParallelAction(
                                 autoActionsSpecimen.clawStop(),
                                 goToScore2,
-                                autoActionsSpecimen.armUp()
+                                autoActionsSpecimen.armUpFromCollect()
                         ),
                         autoActionsSpecimen.elevatorUp(),
                         score2,

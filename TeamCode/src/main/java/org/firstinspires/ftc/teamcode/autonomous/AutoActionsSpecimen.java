@@ -128,6 +128,41 @@ public class AutoActionsSpecimen {
         }
     }
 
+    public class ArmUpFromCollect implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                elevator.elevatorLeftArm.setPower(1);
+                elevator.elevatorRightArm.setPower(1);
+                initialized = true;
+
+            }
+
+            double pos = elevator.elevatorRightArm.getCurrentPosition();
+            packet.put("armPos", pos);
+            if (pos < -1520) {
+                return true;
+            } else {
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                elevator.elevatorLeftArm.setTargetPosition(-1520);
+                elevator.elevatorRightArm.setTargetPosition(-1520);
+                elevator.elevatorLeftArm.setPower(-0.7);
+                elevator.elevatorRightArm.setPower(-0.7);
+                elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                return false;
+            }
+        }
+    }
+
 
     public class ArmDown implements Action {
         private boolean initialized = false;
@@ -156,6 +191,9 @@ public class AutoActionsSpecimen {
     }
     public Action armDown() {
         return new ArmDown();
+    }
+    public Action armUpFromCollect(){
+        return new ArmUpFromCollect();
     }
 
     public class ClawOut implements Action {
