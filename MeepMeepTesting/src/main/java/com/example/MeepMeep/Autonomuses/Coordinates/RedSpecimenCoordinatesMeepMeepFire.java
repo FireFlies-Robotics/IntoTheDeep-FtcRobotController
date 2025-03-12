@@ -4,8 +4,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public class RedSpecimenCoordinatesMeepMeepFire {
 
-    private static final double startPoseHeading = Math.toRadians(-90);
+    private static final double startPoseHeading = Math.toRadians(180);
     private static final double intakePoseHeading = Math.toRadians(270);
+
+    private static final double pushSpecimenHeading = Math.toRadians(-90);
+
 
 
     private static final double startX = 8;
@@ -15,14 +18,14 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final double score3X = 2;
     private static final double score4X = 5;
     private static final double score5X = 8;
-    private static final double scoreY = -38;
+    private static final double scoreY = -37;
     private static final double midWayMoveSpecimensY = -40;
     private static final double moveSpecimensStart0X = 32;
     private static final double moveSpecimensStartY = -13;
-    private static final double moveSpecimensEndY = -50;
-    private static final double specimen1X = 43;
-    private static final double specimen2X = 53;
-    private static final double specimen3X = 61.3;
+    private static final double moveSpecimensEndY = -60;
+    private static final double specimen1X = 45;
+    private static final double specimen2X = 55;
+    private static final double specimen3X = 61.5;
 
     private static final double startScoreX = 0;
     private static final double startScoreY = -51;
@@ -30,10 +33,10 @@ public class RedSpecimenCoordinatesMeepMeepFire {
 
 
     private static final double pushspecimenY = -8;
-    private static final double pushspecimen1X = 42;
-    private static final double pushspecimen2X = 55;
-    private static final double pushspecimen3X = 70
-            ;
+    private static final double pushspecimen1X = 44;
+    private static final double pushspecimen2X = 57;
+    private static final double pushspecimen3X = 71;
+    ;
 
     private static final double ObservationZoneY = -50;
     private static final double ObservationZoneX = 47;
@@ -43,9 +46,9 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final Pose2d Observation = new Pose2d(ObservationZoneX, ObservationZoneY, startPoseHeading);
 
     private static final double wallStartY = -47;
-    private static final double wallEndY = -60;
+    private static final double wallEndY = -62;
     private static final double intakeX = 47;
-    private static final double parkX = 57;
+    private static final double parkX = 45;
 
     private static final double midWayMoveSpecimensTangent = Math.toRadians(0);
 
@@ -63,21 +66,21 @@ public class RedSpecimenCoordinatesMeepMeepFire {
     private static final Pose2d score5 = new Pose2d(score5X, scoreY, startPoseHeading);
 
     private static final Pose2d midWayMoveSpecimens = new Pose2d(moveSpecimensStart0X, midWayMoveSpecimensY, scorePoseHeading);
-    private static final Pose2d moveSpecimensStart0 = new Pose2d(moveSpecimensStart0X, moveSpecimensStartY, startPoseHeading);
+    private static final Pose2d moveSpecimensStart0 = new Pose2d(35, -20, startPoseHeading);
 
     private static final Pose2d moveSpecimenStart1 = new Pose2d(specimen1X, moveSpecimensStartY, startPoseHeading);
     private static final Pose2d moveSpecimenStart2 = new Pose2d(specimen2X, moveSpecimensStartY, startPoseHeading);
     private static final Pose2d moveSpecimenStart3 = new Pose2d(specimen3X, moveSpecimensStartY, startPoseHeading);
 
-    private static final Pose2d moveSpecimenEnd1 = new Pose2d(specimen1X, moveSpecimensEndY, startPoseHeading);
-    private static final Pose2d moveSpecimenEnd2 = new Pose2d(specimen2X, moveSpecimensEndY, startPoseHeading);
-    private static final Pose2d moveSpecimenEnd3 = new Pose2d(specimen3X, moveSpecimensEndY, startPoseHeading);
+    private static final Pose2d moveSpecimenEnd1 = new Pose2d(specimen1X, moveSpecimensEndY, pushSpecimenHeading );
+    private static final Pose2d moveSpecimenEnd2 = new Pose2d(specimen2X, moveSpecimensEndY, pushSpecimenHeading);
+    private static final Pose2d moveSpecimenEnd3 = new Pose2d(specimen3X, moveSpecimensEndY, pushSpecimenHeading);
 
     private static final Pose2d intakeStart = new Pose2d(intakeX, wallStartY, intakePoseHeading);
     private static final Pose2d intakeEnd = new Pose2d(intakeX, wallEndY, startPoseHeading);
 
 
-    private static final Pose2d park = new Pose2d(parkX, wallEndY, startPoseHeading);
+    private static final Pose2d park = new Pose2d(parkX, wallEndY, scorePoseHeading);
 
 
     public static Pose2d getStart() {

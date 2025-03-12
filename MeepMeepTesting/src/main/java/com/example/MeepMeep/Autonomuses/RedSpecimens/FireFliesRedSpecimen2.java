@@ -19,12 +19,10 @@ public class FireFliesRedSpecimen2 {
                 .waitSeconds(0.5)
                 // לך לתחילת הפריקה
                 .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getScore1().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
-//                .setTangent(Math.toRadians(-45))
-//                .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
+                .splineToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getStartScore().position, RedSpecimenCoordinatesMeepMeepFire.getScore1().heading)
                 //תפרוק
-                        .strafeTo(RedSpecimenCoordinatesMeepMeepFire.getStartScore().position)
-                        .strafeToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().position, RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
-                        .strafeToConstantHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().position)
+                        .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getStartScore(), RedSpecimenCoordinatesMeepMeepFire.getIntakeEnd().heading)
+                        .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getIntakeStart(), RedSpecimenCoordinatesMeepMeepFire.getIntakeStart().heading)
                         .setTangent(Math.toRadians(115))
                 .splineToLinearHeading(RedSpecimenCoordinatesMeepMeepFire.getScore2(), RedSpecimenCoordinatesMeepMeepFire.getScore2().heading)
 

@@ -180,6 +180,9 @@ public class TeleOpMode extends LinearOpMode {
 
             if (hsvValues[0] > BLUE_HUE_LOW && hsvValues[0] < BLUE_HUE_HIGH) {
                 telemetry.addLine("Detected: Blue");
+                gamepad1.setLedColor(0, 0, 255, 1);
+                gamepad2.setLedColor(0, 0, 255F, 1);
+
                 if (isBlueAlliance) {
                     gamepad1.rumbleBlips(5);
                     gamepad2.rumbleBlips(5);
@@ -188,6 +191,9 @@ public class TeleOpMode extends LinearOpMode {
                 }
             } else if ((hsvValues[0] > MIN_HUE && hsvValues[0] < RED_HUE_LOW) || (hsvValues[0] > RED_HUE_HIGH && hsvValues[0] < MAX_HUE)) {
                 telemetry.addLine("Detected: Red");
+                gamepad1.setLedColor(255, 0, 0, 1);
+                gamepad2.setLedColor(255, 0, 0, 1);
+
                 if (isBlueAlliance){
                     intake.rotateIntakeWheels(-1);
                 }
@@ -202,9 +208,14 @@ public class TeleOpMode extends LinearOpMode {
             }
             if (hsvValues[0] > YELLOW_HUE_LOW && hsvValues[0] < YELLOW_HUE_HIGH) {
                 telemetry.addLine("Detected: Yellow");
+                gamepad1.setLedColor(255, 255, 0, 1);
+                gamepad2.setLedColor(255, 255, 0, 1);
+
                 gamepad1.rumble(500);
                 gamepad2.rumble(500);
             }
+//            elevator.armLimitCheck();
+
             telemetry.addData("isBlue", isBlueAlliance);
             telemetry.update();
 
