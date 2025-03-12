@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Elevator {
     public static int ARM_MAX_LIMIT = -2710;
@@ -68,6 +72,45 @@ public class Elevator {
 
         elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void LimitSwitchForElevator(){
+        DigitalChannel limitSwitchElevator;
+        limitSwitchElevator = hardwareMap.get(DigitalChannel.class, "limit_switch_elevator");
+        limitSwitchElevator.setMode(DigitalChannel.Mode.INPUT);
+
+
+        boolean LimitSwitchForElevatorIsPressed = !limitSwitchElevator.getState(); // False = לחוץ, True = לא לחוץ
+
+
+        if (LimitSwitchForElevatorIsPressed) {
+            telemetry.addData("Limit Switch", "PRESSED");
+            elevatorLeftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            elevatorRightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            elevatorRightArm.setPower(1);
+            elevatorLeftArm.setPower(1);
+        } else {
+            telemetry.addData("Limit Switch", "NOT PRESSED");
+        }
+
+    }
+    public void LimitSwitchForExtend(){
+        DigitalChannel limitSwitchExtend;
+        limitSwitchExtend = hardwareMap.get(DigitalChannel.class, "limit_switch_extend");
+        limitSwitchExtend.setMode(DigitalChannel.Mode.INPUT);
+
+
+        boolean LimitSwitchForExtensionIsPressed = !limitSwitchExtend.getState(); // False = לחוץ, True = לא לחוץ
+
+
+        if (LimitSwitchForExtensionIsPressed) {
+            telemetry.addData("Limit Switch Extension", "PRESSED");
+            elevatorExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            elevatorExtend.setPower(-1);
+        } else {
+            telemetry.addData("Limit Switch Extension", "NOT PRESSED");
+        }
 
     }
 

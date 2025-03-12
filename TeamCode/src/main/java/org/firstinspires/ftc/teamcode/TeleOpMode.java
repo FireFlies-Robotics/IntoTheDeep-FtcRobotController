@@ -45,6 +45,7 @@ public class TeleOpMode extends LinearOpMode {
     NormalizedColorSensor colorSensor;
     View relativeLayout;
 
+
     @Override
     public void runOpMode() {
         imu = hardwareMap.get(IMU.class, "imu");
@@ -52,6 +53,7 @@ public class TeleOpMode extends LinearOpMode {
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
+
 
         elevator = new Elevator(this);
         wheels = new Wheels(this, imu);
@@ -91,6 +93,11 @@ public class TeleOpMode extends LinearOpMode {
             if (gamepad1.options) {
                 imu.resetYaw();
             }
+
+
+
+
+
 
             wheels.driveByJoystickFieldOriented(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
             elevator.extend(-gamepad2.left_stick_y);
