@@ -42,13 +42,15 @@ public class SpecimenPush extends LinearOpMode {
         Intake intake = new Intake(this);  // Ensure Intake is also initialized if needed
         autoActionsSample = new AutoActionsSample(elevator, intake);
         autoActionsSpecimen = new AutoActionsSpecimen(elevator, intake);  // Pass required dependencies
-        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(20),new AngularVelConstraint(7)));
+        MinVelConstraint velCon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(16),new AngularVelConstraint(7)));
+        MinVelConstraint twocon = new MinVelConstraint(Arrays.asList(new TranslationalVelConstraint(11),new AngularVelConstraint(7)));
+
         elevator.initElevator();
         intake.initIntake();
         MecanumDrive drive = new MecanumDrive(hardwareMap, RedSpecimenCoordinatesFire.getStart());
         Action goToScore = drive.actionBuilder(RedSpecimenCoordinatesFire.getStart())
                 .setTangent(Math.toRadians(90)).setTangent(Math.toRadians(90))
-                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading, velCon)
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading, twocon)
                 .build();
 
         Action scorePreLoad = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
@@ -57,10 +59,17 @@ public class SpecimenPush extends LinearOpMode {
         Action score2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
                 .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore2().position, RedSpecimenCoordinatesFire.getScore1().heading, velCon)
                 .build();
+        Action score3 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+                .splineToConstantHeading(RedSpecimenCoordinatesFire.getScore3().position, RedSpecimenCoordinatesFire.getScore1().heading, velCon)
+                .build();
         Action backOff = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
                 .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
                 .build();
-        Action backOff2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore1())
+        Action backOff2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore2())
+                .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
+                .build();
+        Action backOff3 = drive.actionBuilder(RedSpecimenCoordinatesFire.getScore3())
+                .waitSeconds(0.1)
                 .strafeTo(RedSpecimenCoordinatesFire.getStartScore().position)
                 .build();
         Action park = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
@@ -97,16 +106,24 @@ public class SpecimenPush extends LinearOpMode {
                 return 20;
             }
         };
-
-
-        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+        Action collect1 = drive.actionBuilder(RedSpecimenCoordinatesFire.getMoveSpecimenEnd1())
                 .splineToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart(), RedSpecimenCoordinatesFire.getIntakeStart().heading)
+                .waitSeconds(1.2)
+                .build();
+        Action collect2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getStartScore())
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getIntakeStart(), RedSpecimenCoordinatesFire.getIntakeStart().heading)
+                .waitSeconds(0.3)
                 .build();
 
         Action goToScore2 = drive.actionBuilder(RedSpecimenCoordinatesFire.getIntakeStart())
                 .setTangent(Math.toRadians(115))
                 .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
                 .build();
+        Action goToScore3 = drive.actionBuilder(RedSpecimenCoordinatesFire.getIntakeStart())
+                .setTangent(Math.toRadians(115))
+                .splineToLinearHeading(RedSpecimenCoordinatesFire.getStartScore(), RedSpecimenCoordinatesFire.getStartScore().heading)
+                .build();
+
 
 
         waitForStart();
@@ -127,11 +144,15 @@ public class SpecimenPush extends LinearOpMode {
                                 autoActionsSpecimen.elevatorDown(),
                                 backOff),
                         new ParallelAction(
+                                autoActionsSpecimen.clowOut(),
+
+                                pushSpecimens,
+                                autoActionsSpecimen.armDown()),
+                        new ParallelAction(
                                 collect1,
                                 autoActionsSpecimen.clawIn()
                                 ),
                         autoActionsSample.armToCollect(),
-
                         autoActionsSpecimen.elevatorToCollect(),
                         new ParallelAction(
                                 autoActionsSpecimen.elevatorDown(),
@@ -143,10 +164,29 @@ public class SpecimenPush extends LinearOpMode {
                         score2,
                         new ParallelAction(
                                 autoActionsSpecimen.elevatorDown(),
-                                backOff2),
+                                backOff2
+                        ),
                         new ParallelAction(
-                                autoActionsSpecimen.armDown(),
-                                pushSpecimens)
+                                collect2,
+                                autoActionsSpecimen.clawIn()
+                        ),
+                        autoActionsSample.armToCollect(),
+                        autoActionsSpecimen.elevatorToCollect(),
+                        new ParallelAction(
+                                autoActionsSpecimen.elevatorDown(),
+                                autoActionsSpecimen.clawStop(),
+                                goToScore3,
+                                autoActionsSpecimen.armUpFromCollect()
+                        ),
+                        autoActionsSpecimen.elevatorUp(),
+                        score3,
+                        new ParallelAction(
+                                autoActionsSpecimen.elevatorDown(),
+                                backOff3
+                        ),
+                        autoActionsSpecimen.armDown()
+
+
                 )
 
         );

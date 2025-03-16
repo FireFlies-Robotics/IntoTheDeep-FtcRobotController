@@ -187,7 +187,7 @@ public class TeleOpMode extends LinearOpMode {
                     gamepad1.rumbleBlips(5);
                     gamepad2.rumbleBlips(5);
                 } else {
-                    intake.rotateIntakeWheels(-1);
+//                    intake.rotateIntakeWheels(-1);
                 }
             } else if ((hsvValues[0] > MIN_HUE && hsvValues[0] < RED_HUE_LOW) || (hsvValues[0] > RED_HUE_HIGH && hsvValues[0] < MAX_HUE)) {
                 telemetry.addLine("Detected: Red");

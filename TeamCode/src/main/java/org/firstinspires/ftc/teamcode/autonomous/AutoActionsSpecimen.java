@@ -33,7 +33,7 @@ public class AutoActionsSpecimen {
             if (!initialized) {
                 elevator.elevatorExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                elevator.elevatorExtend.setPower(1);
+                elevator.elevatorExtend.setPower(0.7);
 
                 double power = elevator.elevatorExtend.getPower();
                 packet.put("elevator power", power);
@@ -43,13 +43,13 @@ public class AutoActionsSpecimen {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 530) {
+            if (pos < 557) {
                 return true;
             } else {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorExtend.setTargetPosition(530);
+                elevator.elevatorExtend.setTargetPosition(557);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                elevator.elevatorExtend.setPower(1);
+                elevator.elevatorExtend.setPower(0.7);
 
                 return false;
             }
@@ -104,21 +104,21 @@ public class AutoActionsSpecimen {
 
                 elevator.elevatorRightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 elevator.elevatorLeftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                elevator.elevatorLeftArm.setPower(-1);
-                elevator.elevatorRightArm.setPower(-1);
+                elevator.elevatorLeftArm.setPower(-0.7);
+                elevator.elevatorRightArm.setPower(-0.7);
                 initialized = true;
 
             }
 
             double pos = elevator.elevatorRightArm.getCurrentPosition();
             packet.put("armPos", pos);
-            if (pos > -1520) {
+            if (pos > -1510) {
                 return true;
             } else {
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 elevator.elevatorRightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorLeftArm.setTargetPosition(-1520);
-                elevator.elevatorRightArm.setTargetPosition(-1520);
+                elevator.elevatorLeftArm.setTargetPosition(-1510);
+                elevator.elevatorRightArm.setTargetPosition(-1510);
                 elevator.elevatorLeftArm.setPower(-0.7);
                 elevator.elevatorRightArm.setPower(-0.7);
                 elevator.elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -283,11 +283,11 @@ public class AutoActionsSpecimen {
 
             double pos = elevator.elevatorExtend.getCurrentPosition();
             packet.put("elevator pos", pos);
-            if (pos < 950) {
+            if (pos < 1000) {
                 return true;
             } else {
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                elevator.elevatorExtend.setTargetPosition(950);
+                elevator.elevatorExtend.setTargetPosition(1000);
                 elevator.elevatorExtend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 elevator.elevatorExtend.setPower(1);
                 return false;
