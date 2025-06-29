@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 public class Elevator {
     public static int ARM_MAX_LIMIT = -2710;
     final public static int ARM_MIN_LIMIT = 0; // cant expend over -500 //todo change min limit
@@ -25,7 +27,7 @@ public class Elevator {
     final public static int ELEVATOR_MAX_SPECIMEN = 620;
 
 
-    public  DcMotor elevatorExtend;
+    public  DcMotorEx elevatorExtend;
     public DcMotorEx elevatorLeftArm;
     public DcMotorEx elevatorRightArm;
     private DigitalChannel armSwitch;
@@ -39,7 +41,8 @@ public class Elevator {
     }
 
     public void initElevator(){
-        elevatorExtend = opMode.hardwareMap.get(DcMotor.class, "elevatorExtend");
+
+        elevatorExtend = opMode.hardwareMap.get(DcMotorEx.class, "elevatorExtend");
         elevatorRightArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorRightArm");
         elevatorLeftArm = opMode.hardwareMap.get(DcMotorEx.class, "elevatorLeftArm");
 //        armSwitch = hardwareMap.get(DigitalChannel.class, "arm_switch");
@@ -157,6 +160,9 @@ public class Elevator {
 //            elevatorLeftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //            elevatorRightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+    }
+    public void trackCurrent(){
+        opMode.telemetry.addData("current", elevatorExtend.getCurrent(CurrentUnit.AMPS));
     }
 
 

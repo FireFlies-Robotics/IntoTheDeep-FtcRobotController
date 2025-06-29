@@ -88,6 +88,7 @@ public class TeleOpMode extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
+            elevator.trackCurrent();
             if (gamepad1.options) {
                 imu.resetYaw();
             }
